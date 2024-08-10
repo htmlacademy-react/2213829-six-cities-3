@@ -4,7 +4,7 @@ type Props = {
     count: number
 }
 
-const App: React.FC<Props> = ({count}) => {
+const App: React.FC<Props> = () => {
     return(
         <>
         <LocationItem/>
