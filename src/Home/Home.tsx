@@ -4,9 +4,7 @@ import Header from "../Header/Header.tsx"
 import CityList from "../CityList/CityList.tsx"
 import { Component } from 'react'
 const Home = ({cardItems}) => {
-    Home.propTypes ={
-        cardItems: PropTypes.number
-    }
+    
     return (
     <>
         <Header/>
