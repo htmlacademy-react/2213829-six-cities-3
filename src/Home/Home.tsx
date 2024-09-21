@@ -1,8 +1,12 @@
-import React from "react"
+
 import Card from '../Card/Card.tsx'
 import Header from "../Header/Header.tsx"
 import CityList from "../CityList/CityList.tsx"
+import { Component } from 'react'
 const Home = ({cardItems}) => {
+    Home.propTypes ={
+        cardItems: PropTypes.number
+    }
     return (
     <>
         <Header/>
@@ -15,17 +19,17 @@ const Home = ({cardItems}) => {
               <b className="places__found">312 places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabindex="0">
+                <span className="places__sorting-type">
                   Popular
                   <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlink:href="#icon-arrow-select"></use>
+                    <use href="#icon-arrow-select"></use>
                   </svg>
                 </span>
                 <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabindex="0">Popular</li>
-                  <li className="places__option" tabindex="0">Price: low to high</li>
-                  <li className="places__option" tabindex="0">Price: high to low</li>
-                  <li className="places__option" tabindex="0">Top rated first</li>
+                  <li className="places__option places__option--active" >Popular</li>
+                  <li className="places__option" >Price: low to high</li>
+                  <li className="places__option">Price: high to low</li>
+                  <li className="places__option">Top rated first</li>
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
