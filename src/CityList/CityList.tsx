@@ -1,6 +1,6 @@
 import React from 'react'
 
-function CityList() {
+const CityList =() => {
   return (
     <>
         <h1 className="visually-hidden">Cities</h1>
