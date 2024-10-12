@@ -1,4 +1,5 @@
-import LocationItem from "../location-item/location-item"
+import Home from "../Home/Home"
+
 
 type Props = {
     count: number
@@ -6,7 +7,9 @@ type Props = {
 
 const App = (): JSX.Element => {
     return(
-        <LocationItem/>
+    <div className="page page--gray page--main">
+        <Home cardItems={312}/>
+    </div>
        )
 }
 
