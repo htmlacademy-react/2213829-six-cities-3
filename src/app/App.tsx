@@ -4,12 +4,10 @@ type Props = {
     count: number
 }
 
-const App: React.FC<Props> = () => {
+const App = (): JSX.Element => {
     return(
-        <>
         <LocationItem/>
-        </>
-    )
+       )
 }
 
 export default App

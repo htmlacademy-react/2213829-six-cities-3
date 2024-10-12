@@ -1,19 +1,18 @@
 
-import { Route, Routes, BrowserRouter } from 'react-router-dom';
-import { routes } from './router.data.js';
+import { Routes, Route } from 'react-router-dom';
+import { routes } from './router.data';
 
 const Router = () => {
-  
   return (
-    <BrowserRouter>
-      <Routes>
-            <Route
-              key={routes.path}
-              path={routes.path}
-              element={<routes.component />}
-            />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      {routes.map((route) => (
+        <Route
+          key={route.path}
+          path={route.path}
+          element={route.element}
+        />
+      ))}
+    </Routes>
   );
 };
 

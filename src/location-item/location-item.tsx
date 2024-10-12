@@ -1,6 +1,6 @@
-const LocationItem: React.FC = () => {
+const LocationItem = (): JSX.Element => {
 return (
-    <>
+  
     <div className="place-card__info">
                     <div className="place-card__price-wrapper">
                       <div className="place-card__price">
@@ -25,7 +25,7 @@ return (
                     </h2>
                     <p className="place-card__type">Apartment</p>
                   </div>
-              </>
+            
 )
 }
 
