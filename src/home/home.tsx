@@ -1,13 +1,13 @@
 import { FC } from 'react';
-import Card from '../Card/Card.tsx';
-import Header from '../Header/Header.tsx';
-import CityList from '../CityList/CityList.tsx';
+import Card from '../card/card.tsx';
+import Header from '../header/header.tsx';
+import CityList from '../сity-list/city-list.tsx';
 
 type CardProps = {
     cardItems: React.ReactNode;
 }
 
-const Home: FC<CardProps> = ({cardItems}) => (
+const Home: FC<CardProps> = ({cardItems}): JSX.Element => (
   <>
     <Header/>
     <main className="page__main page__main--index">

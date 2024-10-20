@@ -21,4 +21,5 @@ module.exports = {
       rules: { '@typescript-eslint/unbound-method': 'off' }
     },
   ],
+  ignorePatterns: ["src/setupTests.ts"],  // Add this line to ignore setupTests.ts
 }

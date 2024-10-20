@@ -1,7 +1,7 @@
+import Home from '../home/home';
 
-import Home from '../Home/Home';
 
-const App = () => (
+const App = (): JSX.Element => (
   <div className="page page--gray page--main">
     <Home cardItems={312}/>
   </div>
