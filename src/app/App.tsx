@@ -1,16 +1,10 @@
-import Home from "../Home/Home"
+import Home from '../home/home';
 
 
-type Props = {
-    count: number
-}
+const App = (): JSX.Element => (
+  <div className="page page--gray page--main">
+    <Home cardItems={312}/>
+  </div>
+);
 
-const App = (): JSX.Element => {
-    return(
-    <div className="page page--gray page--main">
-        <Home cardItems={312}/>
-    </div>
-       )
-}
-
-export default App
+export default App;
