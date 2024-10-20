@@ -1,6 +1,6 @@
 import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
-import App from '../app/App.tsx';
+import App from '../app/app.tsx';
 import Login from '../login/login';
 import Favorites from '../favorites/favorites';
 import Offer from '../offer/offer';

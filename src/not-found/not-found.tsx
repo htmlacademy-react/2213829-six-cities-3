@@ -1,8 +1,6 @@
 
-const NotFound = (): JSX.Element => {
-    return (
-        <div>Not found</div>
-    )
-}
+const NotFound = (): JSX.Element => (
+  <div>Not found</div>
+);
 
-export default NotFound
+export default NotFound;
