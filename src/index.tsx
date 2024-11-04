@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
 import {router} from './routes/router.data';
 
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );

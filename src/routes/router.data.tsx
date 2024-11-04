@@ -1,9 +1,12 @@
 import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
-import App from '../app/app.tsx';
-import Login from '../login/login';
+import App from '../app/app';
+import Login from '../login/login.tsx';
 import Favorites from '../favorites/favorites';
 import Offer from '../offer/offer';
+import { OffersStatic } from '../mocks/offers.ts';
+import { FavoritesListData } from '../mocks/favorits.ts';
+
 
 interface RouteItem {
   path: string;
@@ -21,11 +24,11 @@ export const routes: RouteItem[] = [
   },
   {
     path: '/favorites',
-    element: <Favorites />
+    element: <Favorites FavoritesList={FavoritesListData}/>
   },
   {
     path: 'offer/:id',
-    element: <Offer />
+    element: <Offer offersData={OffersStatic} />
   }
 ];
 

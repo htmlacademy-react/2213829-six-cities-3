@@ -2,6 +2,7 @@ import { FC } from 'react';
 import Card from '../card/card.tsx';
 import Header from '../header/header.tsx';
 import CityList from '../сity-list/city-list.tsx';
+import { offersListData } from '../mocks/offers-list.ts';
 
 type CardProps = {
     cardItems: React.ReactNode;
@@ -33,7 +34,7 @@ const Home: FC<CardProps> = ({cardItems}): JSX.Element => (
               </ul>
             </form>
             <div className="cities__places-list places__list tabs__content">
-              <Card />
+              <Card offersData={offersListData}/>
             </div>
           </section>
           <div className="cities__right-section">
