@@ -3,6 +3,7 @@ import Card from '../card/card.tsx';
 import Header from '../header/header.tsx';
 import CityList from '../сity-list/city-list.tsx';
 import { offersListData } from '../mocks/offers-list.ts';
+import Map from '../map/map.tsx';
 
 type CardProps = {
     cardItems: React.ReactNode;
@@ -37,9 +38,7 @@ const Home: FC<CardProps> = ({cardItems}): JSX.Element => (
               <Card offersData={offersListData}/>
             </div>
           </section>
-          <div className="cities__right-section">
-            <section className="cities__map map"></section>
-          </div>
+          <Map city={offersListData}/>
         </div>
       </div>
     </main>

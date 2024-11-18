@@ -4,7 +4,7 @@ import App from '../app/app';
 import Login from '../login/login.tsx';
 import Favorites from '../favorites/favorites';
 import Offer from '../offer/offer';
-import { OffersStatic } from '../mocks/offers.ts';
+import { offers } from '../mocks/offers.ts';
 import { FavoritesListData } from '../mocks/favorits.ts';
 
 
@@ -28,7 +28,7 @@ export const routes: RouteItem[] = [
   },
   {
     path: 'offer/:id',
-    element: <Offer offersData={OffersStatic} />
+    element: <Offer offersData={offers} />
   }
 ];
 

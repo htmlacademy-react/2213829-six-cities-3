@@ -1,70 +1,154 @@
-export type OfferType = {
-    id: string;
-    title: string;
-    type: string;
-    price: number;
-    city: {
-    name: string;
-    location: {
-    latitude: number;
-    longitude: number;
-    zoom: number;
-    };
-    };
-    location: {
-    latitude: number;
-    longitude: number;
-    zoom: number;
-    };
-    isFavorite: boolean;
-    isPremium: boolean;
-    rating: number;
-    description: string;
-    bedrooms: number;
-    goods: [string];
-    host: {
-    name: string;
-    avatarUrl: string;
-    isPro: boolean;
-    };
-    images: string[];
-    maxAdults: number;
-    }
-
-export const OffersStatic: OfferType = {
-  'id': '6af6f711-c28d-4121-82cd-e0b462a27f00',
-  'title': 'Beautiful & luxurious studio at great location',
-  'type': 'apartment',
-  'price': 130,
-  city: {
-    name: 'Amsterdam',
-    location: {
-      latitude: 52.35514938496378,
-      longitude: 4.673877537499948,
-      zoom: 8
-    }
+export const offers = [
+  {
+    'bedrooms': 3,
+    'city': {
+      'location': {
+        'latitude': 52.370216,
+        'longitude': 4.895168,
+        'zoom': 10
+      },
+      'name': 'Amsterdam'
+    },
+    'description': 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    'goods': [
+      'Heating', 'Wi-Fi', 'Washing machine', 'Towels', 'Coffee machine', 'Baby seat', 'Kitchen', 'Dishwasher', 'Cabel TV', 'Fridge',
+    ],
+    'host': {
+      'avatarUrl': 'img/avatar-angelina.jpg',
+      'id': 3,
+      'isPro': true,
+      'name': 'Angelina'
+    },
+    'id': 1,
+    'images': [
+      'img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg',
+    ],
+    'isFavorite': true,
+    'isPremium': false,
+    'location': {
+      'latitude': 52.3909553943508,
+      'longitude': 4.85309666406198,
+      'zoom': 8
+    },
+    'maxAdults': 4,
+    'previewImage': 'img/room.jpg',
+    'price': 120,
+    'rating': 4.8,
+    'title': 'Beautiful & luxurious studio at great location',
+    'type': 'apartment'
   },
-  location: {
-    latitude: 52.35514938496378,
-    longitude: 4.673877537499948,
-    zoom: 8
+  {
+    'bedrooms': 1,
+    'city': {
+      'location': {
+        'latitude': 52.370216,
+        'longitude': 4.895168,
+        'zoom': 10
+      },
+      'name': 'Amsterdam'
+    },
+    'description': 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+    'goods': [
+      'Wi-Fi', 'Towels', 'Cabel TV', 'Fridge',
+    ],
+    'host': {
+      'avatarUrl': 'img/avatar-max.jpg',
+      'id': 4,
+      'isPro': false,
+      'name': 'Truffaldino'
+    },
+    'id': 2,
+    'images': [
+      'img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg',
+    ],
+    'isFavorite': true,
+    'isPremium': true,
+    'location': {
+      'latitude': 52.369553943508,
+      'longitude': 4.85309666406198,
+      'zoom': 8
+    },
+    'maxAdults': 2,
+    'previewImage': 'img/room.jpg',
+    'price': 100,
+    'rating': 5.0,
+    'title': 'Studio channel view',
+    'type': 'flat'
   },
-  isFavorite: false,
-  isPremium: false,
-  rating: 4,
-  description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
-  bedrooms: 3,
-  goods: [
-    'Heating'
-  ],
-  host: {
-    name: 'Oliver Conner',
-    avatarUrl: 'https://url-to-image/image.png',
-    isPro: false
+  {
+    'bedrooms': 8,
+    'city': {
+      'location': {
+        'latitude': 52.370216,
+        'longitude': 4.895168,
+        'zoom': 10
+      },
+      'name': 'Amsterdam'
+    },
+    'description': 'Atque sapiente magni ex consectetur quos optio suscipit, repellendus dolorum culpa laborum sint nobis facilis debitis ea minima tenetur minus voluptate dicta!',
+    'goods': [
+      'Heating', 'Wi-Fi', 'Washing machine', 'Towels', 'Coffee machine', 'Baby seat', 'Kitchen', 'Dishwasher', 'Cabel TV', 'Fridge',
+    ],
+    'host': {
+      'avatarUrl': 'img/avatar-angelina.jpg',
+      'id': 5,
+      'isPro': true,
+      'name': 'Luigina'
+    },
+    'id': 3,
+    'images': [
+      'img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg',
+    ],
+    'isFavorite': false,
+    'isPremium': true,
+    'location': {
+      'latitude': 52.3909553943508,
+      'longitude': 4.929309666406198,
+      'zoom': 8
+    },
+    'maxAdults': 20,
+    'previewImage': 'img/room.jpg',
+    'price': 150,
+    'rating': 3.9,
+    'title': 'Superhotel',
+    'type': 'hotel'
   },
-  images: [
-    'img/apartment-01.jpg',
-    'img/apartment-01.jpg'
-  ],
-  maxAdults: 4
-};
+  {
+    'bedrooms': 2,
+    'city': {
+      'location': {
+        'latitude': 52.370216,
+        'longitude': 4.895168,
+        'zoom': 10
+      },
+      'name': 'Amsterdam'
+    },
+    'description': 'Eum et veniam dolore debitis quos corrupti, facilis saepe laboriosam iure, laborum modi!',
+    'goods': [
+      'Wi-Fi', 'Towels', 'Coffee machine', 'Kitchen', 'Cabel TV', 'Fridge',
+    ],
+    'host': {
+      'avatarUrl': 'img/avatar-max.jpg',
+      'id': 6,
+      'isPro': true,
+      'name': 'Paul'
+    },
+    'id': 4,
+    'images': [
+      'img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg',
+    ],
+    'isFavorite': true,
+    'isPremium': false,
+    'location': {
+      'latitude': 52.3809553943508,
+      'longitude': 4.939309666406198,
+      'zoom': 8
+    },
+    'maxAdults': 3,
+    'previewImage': 'img/room.jpg',
+    'price': 80,
+    'rating': 4.5,
+    'title': 'Paul and Anna',
+    'type': 'apartment'
+  }
+];
