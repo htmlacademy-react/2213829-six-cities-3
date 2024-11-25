@@ -17,22 +17,36 @@ type LocationType = {
   }
 
   type OfferType = {
-    bedrooms: number;
-    city: CityType;
-    description: string;
-    goods: string[];
-    host: HostType;
-    id: number;
-    images: string[];
-    isFavorite: boolean;
-    isPremium: boolean;
-    location: LocationType;
-    maxAdults: number;
-    previewImage: string;
-    price: number;
-    rating: number;
-    title: string;
-    type: string;
+    id: string;
+title: string;
+type: string;
+price: number;
+city: {
+name: string;
+location: {
+latitude: number;
+longitude: number;
+zoom: number;
+};
+};
+location: {
+latitude: number;
+longitude: number;
+zoom: number;
+};
+isFavorite: boolean;
+isPremium: boolean;
+rating: number;
+description: string;
+bedrooms: number;
+goods: [string];
+host: {
+name: string;
+avatarUrl: string;
+isPro: boolean;
+};
+images: [string];
+maxAdults: number;
   }
 
   type OffersType = OfferType[];
