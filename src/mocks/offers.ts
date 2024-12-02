@@ -1,70 +1,96 @@
-export type OfferType = {
-    id: string;
-    title: string;
-    type: string;
-    price: number;
-    city: {
-    name: string;
-    location: {
-    latitude: number;
-    longitude: number;
-    zoom: number;
-    };
-    };
-    location: {
-    latitude: number;
-    longitude: number;
-    zoom: number;
-    };
-    isFavorite: boolean;
-    isPremium: boolean;
-    rating: number;
-    description: string;
-    bedrooms: number;
-    goods: [string];
-    host: {
-    name: string;
-    avatarUrl: string;
-    isPro: boolean;
-    };
-    images: string[];
-    maxAdults: number;
-    }
+import {Offer} from '../types/Offer.ts';
 
-export const OffersStatic: OfferType = {
-  'id': '6af6f711-c28d-4121-82cd-e0b462a27f00',
-  'title': 'Beautiful & luxurious studio at great location',
-  'type': 'apartment',
-  'price': 130,
-  city: {
-    name: 'Amsterdam',
+export const offers: Offer[] = [
+  {
+    id: '1',
+    title: 'Beautiful \u0026 luxurious apartment at great location',
+    type: 'Apartment',
+    price: 120,
+    city: {
+      name: 'Amsterdam',
+      location: {
+        latitude: 52.3731,
+        longitude: 4.8923,
+        zoom: 1,
+      }
+    },
     location: {
-      latitude: 52.35514938496378,
-      longitude: 4.673877537499948,
-      zoom: 8
-    }
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
+      zoom: 1,
+    },
+    isFavorite: false,
+    isPremium: false,
+    previewImage: 'img/apartment-01.jpg',
+    rating: 4,
   },
-  location: {
-    latitude: 52.35514938496378,
-    longitude: 4.673877537499948,
-    zoom: 8
+  {
+    id: '2',
+    title: 'Wood and stone place',
+    type: 'Room',
+    price: 80,
+    city: {
+      name: 'Amsterdam',
+      location: {
+        latitude: 52.3731,
+        longitude: 4.8923,
+        zoom: 1,
+      }
+    },
+    location: {
+      latitude: 52.3609553943508,
+      longitude: 4.85309666406198,
+      zoom: 1,
+    },
+    isFavorite: true,
+    isPremium: false,
+    previewImage: 'img/room.jpg',
+    rating: 4,
   },
-  isFavorite: false,
-  isPremium: false,
-  rating: 4,
-  description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
-  bedrooms: 3,
-  goods: [
-    'Heating'
-  ],
-  host: {
-    name: 'Oliver Conner',
-    avatarUrl: 'https://url-to-image/image.png',
-    isPro: false
+  {
+    id: '3',
+    title: 'Canal View Prinsengracht',
+    type: 'Apartment',
+    price: 132,
+    city: {
+      name: 'Amsterdam',
+      location: {
+        latitude: 52.3731,
+        longitude: 4.8923,
+        zoom: 1,
+      }
+    },
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198,
+      zoom: 1,
+    },
+    isFavorite: false,
+    isPremium: false,
+    previewImage: 'img/apartment-02.jpg',
+    rating: 4,
   },
-  images: [
-    'img/apartment-01.jpg',
-    'img/apartment-01.jpg'
-  ],
-  maxAdults: 4
-};
+  {
+    id: '4',
+    title: 'Nice, cozy, warm big bed apartment',
+    type: 'Apartment',
+    price: 180,
+    city: {
+      name: 'Amsterdam',
+      location: {
+        latitude: 52.3731,
+        longitude: 4.8923,
+        zoom: 1,
+      }
+    },
+    location: {
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
+      zoom: 1,
+    },
+    isFavorite: false,
+    isPremium: true,
+    previewImage: 'img/apartment-03.jpg',
+    rating: 5,
+  },
+];
