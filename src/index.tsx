@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { RouterProvider } from 'react-router-dom';
-import {router} from './routes/router.data';
-
+import App from './components/app/app';
+import {offers} from './mocks/offers.ts';
+import {favoritePlaces} from './mocks/favorite-places.ts';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -10,6 +10,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+    <App offers={offers} favoritePlaces={favoritePlaces} />
+  </React.StrictMode>,
 );

@@ -1,29 +1,6 @@
 import {Offer} from '../types/Offer.ts';
 
-export const offers: Offer[] = [
-  {
-    id: '1',
-    title: 'Beautiful \u0026 luxurious apartment at great location',
-    type: 'Apartment',
-    price: 120,
-    city: {
-      name: 'Amsterdam',
-      location: {
-        latitude: 52.3731,
-        longitude: 4.8923,
-        zoom: 1,
-      }
-    },
-    location: {
-      latitude: 52.3909553943508,
-      longitude: 4.85309666406198,
-      zoom: 1,
-    },
-    isFavorite: false,
-    isPremium: false,
-    previewImage: 'img/apartment-01.jpg',
-    rating: 4,
-  },
+export const offersNearby: Offer[] = [
   {
     id: '2',
     title: 'Wood and stone place',
