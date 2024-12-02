@@ -39,6 +39,7 @@ function OffersList({...props}: OffersListProps): JSX.Element {
             price={offer.price}
             previewImage={offer.previewImage}
             rating={offer.rating}
+            isNearbyOfferCard={false}
           />
         ))}
       </div>
