@@ -90,7 +90,12 @@ function MainPage({offers}: MainPageProps): JSX.Element {
           <div className="cities__places-container container">
             <OffersList offers={offers} onHover={handleOfferHover} />
             <div className="cities__right-section">
-              <CitiesMap city={offers[0].city} offers={offers} hoveredOfferId={hoveredOfferId} />
+              <CitiesMap
+                city={offers[0].city}
+                offers={offers}
+                selectedOfferId={hoveredOfferId}
+                isNearbyOffersMap={false}
+              />
             </div>
           </div>
         </div>
