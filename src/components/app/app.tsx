@@ -7,15 +7,14 @@ import FavoritesPage from '../../pages/favorites-page/favorites-page.tsx';
 import NotFoundPage from '../../pages/not-found-page/not-found-page.tsx';
 import {AppRoute, AuthorizationStatus} from '../../const.ts';
 import {FavoritePlace} from '../../types/FavoritePlace.ts';
-import {Offer} from '../../types/Offer.ts';
 
-function App({offers, favoritePlaces}: AppProps): JSX.Element {
+function App({favoritePlaces}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<MainPage offers={offers} />}
+          element={<MainPage />}
         />
         <Route
           path={AppRoute.Login}
@@ -43,7 +42,6 @@ function App({offers, favoritePlaces}: AppProps): JSX.Element {
 }
 
 type AppProps = {
-  offers: Offer[];
   favoritePlaces: FavoritePlace[];
 }
 

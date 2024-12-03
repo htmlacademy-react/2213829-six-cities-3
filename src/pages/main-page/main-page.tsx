@@ -1,21 +1,25 @@
 import {Link} from 'react-router-dom';
 import OffersList from '../../components/offers-list/offers-list.tsx';
-import {AppRoute} from '../../const.ts';
-import {Offer} from '../../types/Offer.ts';
+import {AppRoute, Cities} from '../../const.ts';
 import CitiesMap from '../../components/cities-map/cities-map.tsx';
 import {useState} from 'react';
+import {useAppSelector} from '../../hooks';
+import {Offer} from '../../types/Offer.ts';
+import {CitiesTabs} from '../../components/cities-tabs/cities-tabs.tsx';
 
-type MainPageProps = {
-  offers: Offer[];
+function getOffersByCity(offers: Offer[], city: Cities) {
+  const filteredOffers = offers.filter((offer) => offer.city.name === city);
+  return filteredOffers ?? null;
 }
 
-function MainPage({offers}: MainPageProps): JSX.Element {
-  const [hoveredOfferId, setHoveredOfferId] = useState<string | undefined>(undefined);
+export default function MainPage(): JSX.Element {
+  const city = useAppSelector((state) => state.city);
+  const offers = getOffersByCity(useAppSelector((state) => state.offers), city);
+  const [hoveredOfferId, setHoveredOfferId] = useState<string | null>(null);
 
-  const handleOfferHover = (offerId: string | undefined) => {
+  const handleOfferHover = (offerId: string | null) => {
     setHoveredOfferId(offerId);
   };
-
 
   return (
     <div className="page page--gray page--main">
@@ -50,48 +54,17 @@ function MainPage({offers}: MainPageProps): JSX.Element {
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <div className="tabs">
-          <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
-          </section>
-        </div>
+        <CitiesTabs currentCity={city} />
         <div className="cities">
           <div className="cities__places-container container">
-            <OffersList offers={offers} onHover={handleOfferHover} />
+            <OffersList
+              offers={offers}
+              onHover={handleOfferHover}
+              currentAmountOfOffers={offers?.length}
+              currentCity={city}
+            />
             <div className="cities__right-section">
               <CitiesMap
-                city={offers[0].city}
                 offers={offers}
                 selectedOfferId={hoveredOfferId}
                 isNearbyOffersMap={false}
@@ -103,5 +76,3 @@ function MainPage({offers}: MainPageProps): JSX.Element {
     </div>
   );
 }
-
-export default MainPage;

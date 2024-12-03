@@ -1,4 +1,5 @@
 import {Offer} from '../types/Offer.ts';
+import {Cities} from '../const.ts';
 
 export const offers: Offer[] = [
   {
@@ -7,7 +8,7 @@ export const offers: Offer[] = [
     type: 'Apartment',
     price: 120,
     city: {
-      name: 'Amsterdam',
+      name: Cities.Amsterdam,
       location: {
         latitude: 52.3731,
         longitude: 4.8923,
@@ -30,7 +31,7 @@ export const offers: Offer[] = [
     type: 'Room',
     price: 80,
     city: {
-      name: 'Amsterdam',
+      name: Cities.Amsterdam,
       location: {
         latitude: 52.3731,
         longitude: 4.8923,
@@ -53,7 +54,7 @@ export const offers: Offer[] = [
     type: 'Apartment',
     price: 132,
     city: {
-      name: 'Amsterdam',
+      name: Cities.Amsterdam,
       location: {
         latitude: 52.3731,
         longitude: 4.8923,
@@ -76,7 +77,7 @@ export const offers: Offer[] = [
     type: 'Apartment',
     price: 180,
     city: {
-      name: 'Amsterdam',
+      name: Cities.Amsterdam,
       location: {
         latitude: 52.3731,
         longitude: 4.8923,
