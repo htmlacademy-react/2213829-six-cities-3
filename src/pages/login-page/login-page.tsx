@@ -1,34 +1,54 @@
-import {Link} from 'react-router-dom';
+import {Header} from '../../components/header/header.tsx';
+import {FormEvent, useState} from 'react';
+import {useAppDispatch} from '../../hooks';
+import {useNavigate} from 'react-router-dom';
+import {loginAction} from '../../store/api-actions.ts';
 import {AppRoute} from '../../const.ts';
 
-function LoginPage(): JSX.Element {
-  return(
+function LoginPage() {
+  const [login, setLogin] = useState<string | null>(null);
+  const [password, setPassword] = useState<string | null>(null);
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  function handleSetLogin(input: string | null) {
+    setLogin(input);
+  }
+
+  function handleSetPassword(input: string | null) {
+    setPassword(input);
+  }
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    if (login !== null && password !== null) {
+      dispatch(loginAction({
+        login: login,
+        password: password,
+      }));
+
+      navigate(AppRoute.Main);
+    }
+  }
+
+  return (
     <div className="page page--gray page--login">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Link className="header__logo-link" to={AppRoute.Main}>
-                <img
-                  className="header__logo"
-                  src="img/logo.svg"
-                  alt="6 cities logo"
-                  width={81}
-                  height={41}
-                />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Header />
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post">
+            <form
+              onSubmit={handleSubmit}
+              className="login__form form"
+              action="#"
+            >
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input
+                  onInput={(event) => (handleSetLogin(event.currentTarget.value))}
                   className="login__input form__input"
                   type="email"
                   name="email"
@@ -39,6 +59,7 @@ function LoginPage(): JSX.Element {
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
                 <input
+                  onInput={(event) => (handleSetPassword(event.currentTarget.value))}
                   className="login__input form__input"
                   type="password"
                   name="password"
@@ -46,7 +67,10 @@ function LoginPage(): JSX.Element {
                   required
                 />
               </div>
-              <button className="login__submit form__submit button" type="submit">
+              <button
+                className="login__submit form__submit button"
+                type="submit"
+              >
             Sign in
               </button>
             </form>

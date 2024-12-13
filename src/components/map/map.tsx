@@ -40,18 +40,20 @@ function Map({...props}: MapProps) {
 
         {
           marker.setIcon(
-            (props.selectedPoint && point.title === props.selectedPoint.title)
+            (props.selectedPoint && point.id === props.selectedPoint.id)
               ? currentCustomIcon
               : defaultCustomIcon
           ).addTo(markerLayer);
         }
       });
 
+      map.flyTo({lat: props.city?.location.latitude ?? 0, lng: props.city?.location.longitude ?? 0}, undefined, {duration: 0.01});
+
       return () => {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, props.points, props.selectedPoint]);
+  }, [map, props.city?.location.latitude, props.city?.location.longitude, props.points, props.selectedPoint]);
 
   return <section className={props.isNearbyOffersMap ? 'offer__map map' : 'cities__map map'} ref={mapRef}></section>;
 }

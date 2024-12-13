@@ -11,7 +11,7 @@ type OffersListProps = {
   currentAmountOfOffers: number | undefined;
 }
 
-function OffersList({...props}: OffersListProps): JSX.Element {
+function OffersList({...props}: OffersListProps) {
   const [sortOption, setSortOption] = useState<SortOptions>(SortOptions.Popular);
 
   function handleChangeSortOption(newSortOption: SortOptions) {
@@ -45,7 +45,7 @@ function OffersList({...props}: OffersListProps): JSX.Element {
         currentSortOption={sortOption}
       />
       <div className="cities__places-list places__list tabs__content">
-        {props.offers && sortOffers(props.offers, sortOption)?.map((offer) => (
+        {props.offers ? sortOffers(props.offers, sortOption)?.map((offer) => (
           <OfferCard
             key={offer.id}
             onHover={props.onHover}
@@ -58,8 +58,8 @@ function OffersList({...props}: OffersListProps): JSX.Element {
             previewImage={offer.previewImage}
             rating={offer.rating}
             isNearbyOfferCard={false}
-          />
-        ))}
+          />)) :
+          (<p>No places to stay available</p>)}
       </div>
     </section>
   );

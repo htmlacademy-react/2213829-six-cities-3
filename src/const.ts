@@ -1,6 +1,4 @@
-export const Setting = {
-  OffersAmount: 5,
-};
+export const TIMEOUT_SHOW_ERROR = 2000;
 
 export enum AppRoute {
   Main = '/',
@@ -29,6 +27,13 @@ export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
+}
+
+export enum APIRoute {
+  Offers = '/offers',
+  Login = '/login',
+  Logout = '/logout',
+  Comments = '/comments',
 }
 
 export const URL_MARKER_DEFAULT =
