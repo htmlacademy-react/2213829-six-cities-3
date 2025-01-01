@@ -5,9 +5,9 @@ import {favoritePlaces} from './mocks/favorite-places.ts';
 import {Provider} from 'react-redux';
 import {store} from './store';
 import ErrorMessage from './components/error-message/error-message.tsx';
-import {checkAuthAction, loadOffersAction} from './store/api-actions';
+import {checkAuthAction, fetchOfferAction} from './store/api-actions';
 
-store.dispatch(loadOffersAction());
+store.dispatch(fetchOfferAction());
 store.dispatch(checkAuthAction());
 
 const root = ReactDOM.createRoot(

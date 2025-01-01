@@ -1,21 +1,22 @@
 import CitiesMap from '../cities-map/cities-map.tsx';
+import {offers} from '../../mocks/offers.ts';
 import OfferCard from '../offer-card/offer-card.tsx';
 import {Offer} from '../../types/Offer.ts';
-import {useAppSelector} from '../../hooks';
 
-export function OffersNearby() {
-  const nearbyOffers = useAppSelector((state) => state.currentNearbyOffers);
-  const currentOffer = useAppSelector((state) => state.currentOffer);
+type OffersNearbyProps = {
+  selectedOfferId: string;
+}
 
-  function omitSelectedOffer(offersToFilter: Offer[], selectedOfferId: string | undefined) {
+export function OffersNearby({...props}: OffersNearbyProps) {
+  function omitSelectedOffer(offersToFilter: Offer[], selectedOfferId: string) {
     return offersToFilter.filter((offer) => offer.id !== selectedOfferId);
   }
 
   return (
     <>
       <CitiesMap
-        offers={nearbyOffers}
-        selectedOfferId={currentOffer?.id ?? null}
+        offers={offers}
+        selectedOfferId={props.selectedOfferId}
         isNearbyOffersMap
       />
       <div className="container">
@@ -24,7 +25,7 @@ export function OffersNearby() {
             Other places in the neighbourhood
           </h2>
           <div className="near-places__list places__list">
-            {omitSelectedOffer(nearbyOffers, currentOffer?.id).map((offer) => (
+            {omitSelectedOffer(offers, props.selectedOfferId).map((offer) => (
               <OfferCard
                 isNearbyOfferCard
                 key={offer.id}

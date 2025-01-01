@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const.ts';
 import {Header} from '../../components/header/header.tsx';
 
-function NotFoundPage() {
+function NotFoundPage(): JSX.Element {
   return(
     <div className="page page--gray page--login">
       <Header />

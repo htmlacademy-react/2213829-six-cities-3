@@ -13,9 +13,8 @@ import LoadingScreen from '../../pages/loading-page/loading-screen.tsx';
 function App({favoritePlaces}: AppProps): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
-  const isOfferDataLoading = useAppSelector((state) => state.isOfferDataLoading);
 
-  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading || isOfferDataLoading) {
+  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
     return (
       <LoadingScreen />
     );

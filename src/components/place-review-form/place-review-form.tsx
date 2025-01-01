@@ -1,13 +1,8 @@
-import {ChangeEvent, FormEvent, useState} from 'react';
-import {useAppDispatch, useAppSelector} from '../../hooks';
-import {loadOfferCommentsAction, postCommentAction} from '../../store/api-actions.ts';
+import {ChangeEvent, useState} from 'react';
 
-function PlaceReviewForm() {
-  const dispatch = useAppDispatch();
+function PlaceReviewForm(): JSX.Element {
   const [reviewRating, setReviewRating] = useState<number | null>(null);
   const [reviewDescription, setReviewDescription] = useState<string | null>(null);
-  const currentOffer = useAppSelector((state) => state.currentOffer);
-  const currentOfferId = currentOffer ? currentOffer.id : undefined;
 
   const handleRatingChange = (rating: number) => {
     setReviewRating(rating);
@@ -17,18 +12,8 @@ function PlaceReviewForm() {
     setReviewDescription(evt.target.value);
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (reviewDescription && reviewRating) {
-      const comment = {id: currentOfferId, comment: reviewDescription, rating: reviewRating};
-      dispatch(postCommentAction(comment)).unwrap().then(() => {
-        dispatch(loadOfferCommentsAction(currentOffer?.id));
-      });
-    }
-  };
-
   return (
-    <form className="reviews__form form" action="#" onSubmit={handleSubmit}>
+    <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
@@ -137,10 +122,13 @@ function PlaceReviewForm() {
         <button
           className="reviews__submit form__submit button"
           type="submit"
+          disabled
         >
           Submit
         </button>
       </div>
+      <p>Your review rating: {reviewRating}</p>
+      <p>Your review description: {reviewDescription}</p>
     </form>
   );
 }
