@@ -1,15 +1,17 @@
-/* eslint-env node */
-
 module.exports = {
   env: { browser: true, es2022: true },
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
-    "htmlacademy/react-typescript",
+    'htmlacademy/react-typescript',
   ],
   parser: '@typescript-eslint/parser',
-  parserOptions: { ecmaVersion: 'latest', sourceType: 'module', project: 'tsconfig.json' },
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: 'tsconfig.json',
+  },
   settings: { react: { version: 'detect' } },
   plugins: ['react-refresh'],
   rules: {
@@ -17,9 +19,9 @@ module.exports = {
   },
   overrides: [
     {
-      files: [ '*test*' ],
-      rules: { '@typescript-eslint/unbound-method': 'off' }
+      files: ['*test*'],
+      rules: { '@typescript-eslint/unbound-method': 'off' },
     },
   ],
-  ignorePatterns: ["src/setupTests.ts"],  // Add this line to ignore setupTests.ts
-}
+  ignorePatterns: ['src/setupTests.ts'], // Add this line to ignore setupTests.ts
+};
