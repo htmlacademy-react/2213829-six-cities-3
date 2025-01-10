@@ -10,6 +10,7 @@ type MapProps = {
   city: City;
   points: Point[];
   selectedPoint?: Point;
+  isNearbyOffersMap: boolean;
 }
 
 const defaultCustomIcon = new Icon({
@@ -50,7 +51,7 @@ function Map({...props}: MapProps) {
     }
   }, [map, props.points, props.selectedPoint]);
 
-  return <section className="cities__map map" ref={mapRef}></section>;
+  return <section className={props.isNearbyOffersMap ? 'offer__map map' : 'cities__map map'} ref={mapRef}></section>;
 }
 
 export default Map;

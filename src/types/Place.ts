@@ -1,5 +1,5 @@
 import {City} from './City.ts';
-import {Host} from './Host.ts';
+import {User} from './User.ts';
 import {LocationInfo} from './LocationInfo.ts';
 
 
@@ -16,7 +16,7 @@ export type Place = {
   description: string;
   bedrooms: number;
   goods: string[];
-  host: Host;
+  host: User;
   images: string[];
   maxAdults: number;
 };
