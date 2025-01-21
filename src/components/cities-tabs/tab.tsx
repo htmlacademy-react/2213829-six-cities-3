@@ -1,4 +1,5 @@
 import {Cities} from '../../const.ts';
+import { Link } from 'react-router-dom';
 
 type TabProps = {
   title: Cities;
@@ -9,13 +10,13 @@ type TabProps = {
 export function Tab({...props}: TabProps) {
   return (
     <li className="locations__item">
-      <a
+      <Link
         className={props.isActive ? 'locations__item-link tabs__item tabs__item--active' : 'locations__item-link tabs__item'}
-        href="#"
+        to="#"
         onClick={() => props.handleClick(props.title)}
       >
         <span>{props.title}</span>
-      </a>
+      </Link>
     </li>
   );
 }
