@@ -6,12 +6,18 @@ type SortingFormProps = {
   currentSortOption: SortOptions;
 }
 
-export function SortingForm({...props}: SortingFormProps) {
+export function SortingForm({ handleChangeSortOption, currentSortOption }: SortingFormProps) {
   const [isFormOpened, setIsFormOpened] = useState<boolean>(false);
 
   function handleChangeFormOpened() {
     setIsFormOpened(!isFormOpened);
   }
+  // Объект SortOptions представила в виде массива и мапнула его
+
+  const sortOptions = Object.entries(SortOptions).map(([key, value]) => ({
+    label: value,
+    value: key as keyof typeof SortOptions
+  }));
 
   return (
     <form className="places__sorting" action="#" method="get">
@@ -22,7 +28,7 @@ export function SortingForm({...props}: SortingFormProps) {
         tabIndex={0}
         style={{paddingLeft: '3px'}}
       >
-        {props.currentSortOption}
+        {currentSortOption}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
@@ -34,62 +40,23 @@ export function SortingForm({...props}: SortingFormProps) {
             'places__options places__options--custom'
         }
       >
-        <li
-          className={
-            props.currentSortOption === SortOptions.Popular ?
-              'places__option places__option--active' :
-              'places__option'
-          }
-          onClick={() => {
-            props.handleChangeSortOption(SortOptions.Popular);
-            handleChangeFormOpened();
-          }}
-          tabIndex={0}
-        >
-          Popular
-        </li>
-        <li
-          className={
-            props.currentSortOption === SortOptions.PriceLowToHigh ?
-              'places__option places__option--active' :
-              'places__option'
-          }
-          onClick={() => {
-            props.handleChangeSortOption(SortOptions.PriceLowToHigh);
-            handleChangeFormOpened();
-          }}
-          tabIndex={0}
-        >
-          Price: low to high
-        </li>
-        <li
-          className={
-            props.currentSortOption === SortOptions.PriceHighToLow ?
-              'places__option places__option--active' :
-              'places__option'
-          }
-          onClick={() => {
-            props.handleChangeSortOption(SortOptions.PriceHighToLow);
-            handleChangeFormOpened();
-          }}
-          tabIndex={0}
-        >
-          Price: high to low
-        </li>
-        <li
-          className={
-            props.currentSortOption === SortOptions.TopRated ?
-              'places__option places__option--active' :
-              'places__option'
-          }
-          onClick={() => {
-            props.handleChangeSortOption(SortOptions.TopRated);
-            handleChangeFormOpened();
-          }}
-          tabIndex={0}
-        >
-          Top rated first
-        </li>
+        {sortOptions.map((option) => (
+          <li
+            key={option.value}
+            className={
+              currentSortOption === SortOptions[option.value] ?
+                'places__option places__option--active' :
+                'places__option'
+            }
+            onClick={() => {
+              handleChangeSortOption(SortOptions[option.value]);
+              handleChangeFormOpened();
+            }}
+            tabIndex={0}
+          >
+            {option.label}
+          </li>
+        ))}
       </ul>
     </form>
   );

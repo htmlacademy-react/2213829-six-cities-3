@@ -25,14 +25,14 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-function Map({...props}: MapProps) {
+function Map({ city, points, selectedPoint, isNearbyOffersMap }: MapProps) {
   const mapRef = useRef(null);
-  const map = useMap(mapRef, props.city);
+  const map = useMap(mapRef, city);
 
   useEffect(() => {
-    if (map && props.points) {
+    if (map && points) {
       const markerLayer = layerGroup().addTo(map);
-      props.points.forEach((point) => {
+      points.forEach((point) => {
         const marker = new Marker({
           lat: point.lat,
           lng: point.lng
@@ -40,22 +40,22 @@ function Map({...props}: MapProps) {
 
         {
           marker.setIcon(
-            (props.selectedPoint && point.id === props.selectedPoint.id)
+            (selectedPoint && point.id === selectedPoint.id)
               ? currentCustomIcon
               : defaultCustomIcon
           ).addTo(markerLayer);
         }
       });
 
-      map.flyTo({lat: props.city?.location.latitude ?? 0, lng: props.city?.location.longitude ?? 0}, undefined, {duration: 0.01});
+      map.flyTo({lat: city?.location.latitude ?? 0, lng: city?.location.longitude ?? 0}, undefined, {duration: 0.01});
 
       return () => {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, props.city?.location.latitude, props.city?.location.longitude, props.points, props.selectedPoint]);
+  }, [map, city?.location.latitude, city?.location.longitude, points, selectedPoint]);
 
-  return <section className={props.isNearbyOffersMap ? 'offer__map map' : 'cities__map map'} ref={mapRef}></section>;
+  return <section className={isNearbyOffersMap ? 'offer__map map' : 'cities__map map'} ref={mapRef} />;
 }
 
 export default Map;

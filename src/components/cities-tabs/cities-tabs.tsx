@@ -7,7 +7,7 @@ type CitiesTabsProps = {
   currentCity: Cities;
 }
 
-export function CitiesTabs({...props}: CitiesTabsProps) {
+export function CitiesTabs({ currentCity }: CitiesTabsProps) {
   const dispatch = useAppDispatch();
   const handleChangeCity = (city: Cities) => {
     dispatch(changeCity(city));
@@ -17,36 +17,17 @@ export function CitiesTabs({...props}: CitiesTabsProps) {
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
-          <Tab
-            title={Cities.Paris}
-            isActive={props.currentCity === Cities.Paris}
-            handleClick={handleChangeCity}
-          />
-          <Tab
-            title={Cities.Cologne}
-            isActive={props.currentCity === Cities.Cologne}
-            handleClick={handleChangeCity}
-          />
-          <Tab
-            title={Cities.Brussels}
-            isActive={props.currentCity === Cities.Brussels}
-            handleClick={handleChangeCity}
-          />
-          <Tab
-            title={Cities.Amsterdam}
-            isActive={props.currentCity === Cities.Amsterdam}
-            handleClick={handleChangeCity}
-          />
-          <Tab
-            title={Cities.Hamburg}
-            isActive={props.currentCity === Cities.Hamburg}
-            handleClick={handleChangeCity}
-          />
-          <Tab
-            title={Cities.Dusseldorf}
-            isActive={props.currentCity === Cities.Dusseldorf}
-            handleClick={handleChangeCity}
-          />
+        {Object.keys(Cities).map((cityKey) => {
+            const cityKeyTyped = cityKey as keyof typeof Cities;
+            return (
+              <Tab
+                key={cityKey}
+                title={Cities[cityKeyTyped]}
+                isActive={currentCity === Cities[cityKeyTyped]}
+                handleClick={handleChangeCity}
+              />
+            );
+          })}
         </ul>
       </section>
     </div>
