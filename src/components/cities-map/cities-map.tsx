@@ -6,7 +6,8 @@ import Map from '../map/map.tsx';
 type CitiesMapProps = {
   city: City;
   offers: Offer[];
-  hoveredOfferId?: string;
+  selectedOfferId?: string;
+  isNearbyOffersMap: boolean;
 }
 
 function CitiesMap({...props}: CitiesMapProps) {
@@ -35,7 +36,8 @@ function CitiesMap({...props}: CitiesMapProps) {
     <Map
       city={props.city}
       points={getPointsFromOffers(props.offers)}
-      selectedPoint={getSelectedPointFromOffers(props.offers, props.hoveredOfferId)}
+      selectedPoint={getSelectedPointFromOffers(props.offers, props.selectedOfferId)}
+      isNearbyOffersMap={props.isNearbyOffersMap}
     />
   );
 }
