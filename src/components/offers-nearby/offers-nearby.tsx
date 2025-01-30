@@ -4,6 +4,7 @@ import OfferCard from '../offer-card/offer-card.tsx';
 import {Offer} from '../../types/Offer.ts';
 import { City } from '../../types/City.ts';
 
+
 type OffersNearbyProps = {
   selectedOfferId: string;
   city: City;

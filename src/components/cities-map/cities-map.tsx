@@ -1,4 +1,6 @@
-import {City} from '../../types/City.ts';
+
+import { City } from '../../types/City.ts';
+// import {City} from '../../types/City.ts';
 import {Offer} from '../../types/Offer.ts';
 import {Point} from '../../types/Point.ts';
 import Map from '../map/map.tsx';
