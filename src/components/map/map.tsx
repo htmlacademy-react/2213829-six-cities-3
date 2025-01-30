@@ -7,9 +7,9 @@ import {URL_MARKER_CURRENT, URL_MARKER_DEFAULT} from '../../const';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
-  city: City;
-  points: Point[];
-  selectedPoint?: Point;
+  city: City | null;
+  points: Point[] | null;
+  selectedPoint?: Point | null;
   isNearbyOffersMap: boolean;
 }
 
@@ -30,7 +30,7 @@ function Map({...props}: MapProps) {
   const map = useMap(mapRef, props.city);
 
   useEffect(() => {
-    if (map) {
+    if (map && props.points) {
       const markerLayer = layerGroup().addTo(map);
       props.points.forEach((point) => {
         const marker = new Marker({
@@ -38,11 +38,13 @@ function Map({...props}: MapProps) {
           lng: point.lng
         });
 
-        marker.setIcon(
-          props.selectedPoint !== undefined && point.title === props.selectedPoint.title
-            ? currentCustomIcon
-            : defaultCustomIcon
-        ).addTo(markerLayer);
+        {
+          marker.setIcon(
+            (props.selectedPoint && point.title === props.selectedPoint.title)
+              ? currentCustomIcon
+              : defaultCustomIcon
+          ).addTo(markerLayer);
+        }
       });
 
       return () => {

@@ -1,6 +1,6 @@
 import {Tab} from './tab.tsx';
 import {Cities} from '../../const.ts';
-import {useAppDispatch} from '../../hooks/index.ts';
+import {useAppDispatch} from '../../hooks';
 import {changeCity} from '../../store/action.ts';
 
 type CitiesTabsProps = {

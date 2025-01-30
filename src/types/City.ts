@@ -1,6 +1,7 @@
 import {LocationInfo} from './LocationInfo.ts';
+import {Cities} from '../const.ts';
 
 export type City = {
-  name: string;
+  name: Cities;
   location: LocationInfo;
 };

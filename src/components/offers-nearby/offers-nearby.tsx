@@ -16,7 +16,6 @@ export function OffersNearby({...props}: OffersNearbyProps) {
     <>
       <CitiesMap
         offers={offers}
-        city={offers[0].city}
         selectedOfferId={props.selectedOfferId}
         isNearbyOffersMap
       />

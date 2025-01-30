@@ -1,16 +1,19 @@
 import OfferCard from '../offer-card/offer-card.tsx';
 import {Offer} from '../../types/Offer.ts';
+import {Cities} from '../../const.ts';
 
 type OffersListProps = {
-  offers: Offer[];
-  onHover: ((offerId: string | undefined) => void);
+  offers: Offer[] | null;
+  onHover: ((offerId: string | null) => void);
+  currentCity: Cities;
+  currentAmountOfOffers: number | undefined;
 }
 
 function OffersList({...props}: OffersListProps): JSX.Element {
   return (
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
-      <b className="places__found">312 places to stay in Amsterdam</b>
+      <b className="places__found">{props.currentAmountOfOffers ?? '0'} places to stay in {props.currentCity}</b>
       <form className="places__sorting" action="#" method="get">
         <span className="places__sorting-caption">Sort by</span>
         <span className="places__sorting-type" tabIndex={0}>
@@ -27,7 +30,7 @@ function OffersList({...props}: OffersListProps): JSX.Element {
         </ul>
       </form>
       <div className="cities__places-list places__list tabs__content">
-        {props.offers.map((offer) => (
+        {props.offers && props.offers.map((offer) => (
           <OfferCard
             key={offer.id}
             onHover={props.onHover}

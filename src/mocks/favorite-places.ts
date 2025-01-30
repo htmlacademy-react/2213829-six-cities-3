@@ -1,4 +1,5 @@
 import {FavoritePlace} from '../types/FavoritePlace.ts';
+import {Cities} from '../const.ts';
 
 export const favoritePlaces: FavoritePlace[] = [
   {
@@ -7,7 +8,7 @@ export const favoritePlaces: FavoritePlace[] = [
     type: 'Room',
     price: 80,
     city: {
-      name: 'Amsterdam',
+      name: Cities.Amsterdam,
       location: {
         latitude: 123,
         longitude: 123,
