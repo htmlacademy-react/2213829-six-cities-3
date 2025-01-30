@@ -18,18 +18,18 @@ export enum Cities {
   Dusseldorf = 'Dusseldorf',
 }
 
-export enum SortOptions {
-  Popular = 'Popular',
-  PriceLowToHigh = 'Price: low to high',
-  PriceHighToLow = 'Price: high to low',
-  TopRated = 'Top rated first',
-}
-
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+   export enum SortOptions {
+    Popular = 'Popular',
+    PriceLowToHigh = 'Price: low to high',
+    PriceHighToLow = 'Price: high to low',
+    TopRated = 'Top rated first',
+  }
 
 export const URL_MARKER_DEFAULT =
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';

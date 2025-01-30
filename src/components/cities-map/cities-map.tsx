@@ -1,11 +1,14 @@
+import {City} from '../../types/City.ts';
 import {Offer} from '../../types/Offer.ts';
 import {Point} from '../../types/Point.ts';
 import Map from '../map/map.tsx';
 
 type CitiesMapProps = {
+  city: City; 
   offers: Offer[] | null;
   selectedOfferId: string | null;
   isNearbyOffersMap: boolean;
+  hoveredOfferId: string | null; // Ensure this allows null
 }
 
 function CitiesMap({...props}: CitiesMapProps) {

@@ -13,40 +13,20 @@ export function CitiesTabs({...props}: CitiesTabsProps) {
     dispatch(changeCity(city));
   };
 
+  const cityKeys = Object.keys(Cities) as Array<keyof typeof Cities>;
+
   return (
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
-          <Tab
-            title={Cities.Paris}
-            isActive={props.currentCity === Cities.Paris}
-            handleClick={handleChangeCity}
-          />
-          <Tab
-            title={Cities.Cologne}
-            isActive={props.currentCity === Cities.Cologne}
-            handleClick={handleChangeCity}
-          />
-          <Tab
-            title={Cities.Brussels}
-            isActive={props.currentCity === Cities.Brussels}
-            handleClick={handleChangeCity}
-          />
-          <Tab
-            title={Cities.Amsterdam}
-            isActive={props.currentCity === Cities.Amsterdam}
-            handleClick={handleChangeCity}
-          />
-          <Tab
-            title={Cities.Hamburg}
-            isActive={props.currentCity === Cities.Hamburg}
-            handleClick={handleChangeCity}
-          />
-          <Tab
-            title={Cities.Dusseldorf}
-            isActive={props.currentCity === Cities.Dusseldorf}
-            handleClick={handleChangeCity}
-          />
+          {cityKeys.map((cityKey) => (
+            <Tab
+              key={cityKey}
+              title={Cities[cityKey]}
+              isActive={props.currentCity === Cities[cityKey]}
+              handleClick={handleChangeCity}
+            />
+          ))}
         </ul>
       </section>
     </div>
