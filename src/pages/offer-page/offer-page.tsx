@@ -3,8 +3,12 @@ import {Link} from 'react-router-dom';
 import {ReviewsList} from '../../components/reviews/reviews-list.tsx';
 import {reviews} from '../../mocks/reviews.ts';
 import {OffersNearby} from '../../components/offers-nearby/offers-nearby.tsx';
+import {useAppSelector} from '../../hooks';
 
 function OfferPage(): JSX.Element {
+  const city = useAppSelector((state) => state.city);
+  const hoveredOfferId = null;
+
   return(
     <div className="page">
       <header className="header">
@@ -176,7 +180,11 @@ function OfferPage(): JSX.Element {
             </div>
           </div>
         </section>
-        <OffersNearby selectedOfferId={'1'} />
+        <OffersNearby
+          selectedOfferId={'1'}
+          city={{name: city, location: {latitude: 0, longitude: 0, zoom: 10}}}
+          hoveredOfferId={hoveredOfferId}
+        />
       </main>
     </div>
   );

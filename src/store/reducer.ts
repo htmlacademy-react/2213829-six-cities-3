@@ -3,9 +3,11 @@ import {changeCity, fillOffers} from './action.ts';
 import {offers} from '../mocks/offers.ts';
 import {Cities} from '../const.ts';
 
+
 const initialState = {
   city: Cities.Paris,
   offers,
+  error: null
 };
 
 export const reducer = createReducer(initialState, (builder) => {

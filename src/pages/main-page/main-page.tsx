@@ -65,7 +65,7 @@ export default function MainPage(): JSX.Element {
             />
             <div className="cities__right-section">
               <CitiesMap
-                city={offers[0].city}
+                city={offers[0].city} // Ensure this line is present
                 offers={offers}
                 hoveredOfferId={hoveredOfferId}
                 selectedOfferId={hoveredOfferId}
