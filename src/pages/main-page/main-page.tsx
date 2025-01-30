@@ -64,11 +64,7 @@ export default function MainPage(): JSX.Element {
               currentCity={city}
             />
             <div className="cities__right-section">
-              <CitiesMap
-                offers={offers}
-                selectedOfferId={hoveredOfferId}
-                isNearbyOffersMap={false}
-              />
+              <CitiesMap city={offers[0].city} offers={offers} hoveredOfferId={hoveredOfferId} />
             </div>
           </div>
         </div>
