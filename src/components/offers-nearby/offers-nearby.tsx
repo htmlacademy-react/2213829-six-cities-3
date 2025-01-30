@@ -2,9 +2,12 @@ import CitiesMap from '../cities-map/cities-map.tsx';
 import {offers} from '../../mocks/offers.ts';
 import OfferCard from '../offer-card/offer-card.tsx';
 import {Offer} from '../../types/Offer.ts';
+import { City } from '../../types/City.ts';
 
 type OffersNearbyProps = {
   selectedOfferId: string;
+  city: City;
+  hoveredOfferId: string | null;
 }
 
 export function OffersNearby({...props}: OffersNearbyProps) {
@@ -15,8 +18,10 @@ export function OffersNearby({...props}: OffersNearbyProps) {
   return (
     <>
       <CitiesMap
+        city={props.city}
         offers={offers}
         selectedOfferId={props.selectedOfferId}
+        hoveredOfferId={props.hoveredOfferId}
         isNearbyOffersMap
       />
       <div className="container">
