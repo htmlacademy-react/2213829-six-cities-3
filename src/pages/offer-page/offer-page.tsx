@@ -180,8 +180,8 @@ function OfferPage(): JSX.Element {
             </div>
           </div>
         </section>
-        <OffersNearby 
-          selectedOfferId={'1'} 
+        <OffersNearby
+          selectedOfferId={'1'}
           city={{name: city, location: {latitude: 0, longitude: 0, zoom: 10}}}
           hoveredOfferId={hoveredOfferId}
         />
