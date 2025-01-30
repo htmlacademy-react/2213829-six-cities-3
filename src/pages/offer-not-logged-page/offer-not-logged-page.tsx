@@ -139,7 +139,7 @@ function OfferNotLoggedPage(): JSX.Element {
                       src="img/avatar-angelina.jpg"
                       width={74}
                       height={74}
-                      alt="Host avatar"
+                      alt="User avatar"
                     />
                   </div>
                   <span className="offer__user-name">Angelina</span>

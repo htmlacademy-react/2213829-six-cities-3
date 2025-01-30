@@ -1,12 +1,10 @@
-import {City} from '../../types/City.ts';
 import {Offer} from '../../types/Offer.ts';
 import {Point} from '../../types/Point.ts';
 import Map from '../map/map.tsx';
 
 type CitiesMapProps = {
-  city: City;
-  offers: Offer[];
-  selectedOfferId?: string;
+  offers: Offer[] | null;
+  selectedOfferId: string | null;
   isNearbyOffersMap: boolean;
 }
 
@@ -19,7 +17,7 @@ function CitiesMap({...props}: CitiesMapProps) {
     }));
   }
 
-  function getSelectedPointFromOffers(offers: Offer[], selectedOfferId?: string): Point | undefined {
+  function getSelectedPointFromOffers(offers: Offer[], selectedOfferId: string | null): Point | undefined {
     const selectedOffer = offers.find((offer) => offer.id === selectedOfferId);
     if (selectedOffer) {
       return {
@@ -34,9 +32,9 @@ function CitiesMap({...props}: CitiesMapProps) {
 
   return (
     <Map
-      city={props.city}
-      points={getPointsFromOffers(props.offers)}
-      selectedPoint={getSelectedPointFromOffers(props.offers, props.selectedOfferId)}
+      city={(props.offers && props.offers[0]) ? props.offers[0].city : null}
+      points={props.offers ? getPointsFromOffers(props.offers) : null}
+      selectedPoint={props.offers ? getSelectedPointFromOffers(props.offers, props.selectedOfferId) : null}
       isNearbyOffersMap={props.isNearbyOffersMap}
     />
   );

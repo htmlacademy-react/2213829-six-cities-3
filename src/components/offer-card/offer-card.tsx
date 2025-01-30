@@ -3,7 +3,7 @@ import {Offer} from '../../types/Offer.ts';
 
 type PlaceCardProps = Omit<Offer, 'city' | 'location'> & {
   isNearbyOfferCard: boolean;
-  onHover: ((offerId: string | undefined) => void);
+  onHover: ((offerId: string | null) => void);
 }
 
 function OfferCard({...props}: PlaceCardProps): JSX.Element {
@@ -12,7 +12,7 @@ function OfferCard({...props}: PlaceCardProps): JSX.Element {
   };
 
   const handleMouseLeave = () => {
-    props.onHover(undefined);
+    props.onHover(null);
   };
 
   return (
