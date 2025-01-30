@@ -1,14 +1,13 @@
 import {useAppSelector} from '../../hooks/index';
 import './error-message.css';
+import { RootState } from '../../store';
 
 function ErrorMessage() {
-  const error = useAppSelector((state) => state.error);
+  const error: string | null = useAppSelector((state: RootState) => state.error);
 
   return (
     <div>
-     
-      {error && <ErrorMessage />}
-     
+      {error && <div className="error-message">{error}</div>}
     </div>
   );
 }
