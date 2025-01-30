@@ -24,7 +24,7 @@ export const loadNearbyOffers = createAction<Offer[]>('data/loadOffersNearby');
 export const postComment = createAction<PostReview>('data/postComment');
 
 export const setError = (message: string) => ({
-    type: 'SET_ERROR',
-    payload: message,
-  });
-  export const fillOffers = createAction<Offer[]>('offers/fill');
+  type: 'SET_ERROR',
+  payload: message,
+});
+export const fillOffers = createAction<Offer[]>('offers/fill');

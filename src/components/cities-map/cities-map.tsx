@@ -4,7 +4,7 @@ import {Point} from '../../types/Point.ts';
 import Map from '../map/map.tsx';
 
 type CitiesMapProps = {
-  city: City; 
+  city: City;
   offers: Offer[] | null;
   selectedOfferId: string | null;
   isNearbyOffersMap: boolean;

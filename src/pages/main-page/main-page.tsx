@@ -64,14 +64,14 @@ export default function MainPage(): JSX.Element {
               currentCity={city}
             />
             <div className="cities__right-section">
-  <CitiesMap
-    city={offers[0].city} // Ensure this line is present
-    offers={offers}
-    hoveredOfferId={hoveredOfferId}
-    selectedOfferId={hoveredOfferId}
-    isNearbyOffersMap={false}
-  />
-</div>
+              <CitiesMap
+                city={offers[0].city} // Ensure this line is present
+                offers={offers}
+                hoveredOfferId={hoveredOfferId}
+                selectedOfferId={hoveredOfferId}
+                isNearbyOffersMap={false}
+              />
+            </div>
           </div>
         </div>
       </main>

@@ -24,7 +24,7 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-   export enum SortOptions {
+export enum SortOptions {
     Popular = 'Popular',
     PriceLowToHigh = 'Price: low to high',
     PriceHighToLow = 'Price: high to low',
