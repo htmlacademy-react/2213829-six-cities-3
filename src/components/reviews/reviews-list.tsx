@@ -1,26 +1,22 @@
-import PlaceReviewForm from '../place-review-form/place-review-form.tsx';
-import {Review} from '../../types/Review.ts';
-import {ReviewItem} from './review-item.tsx';
+import React from 'react';
+import { Review } from '../../types/Review.ts';
 
 type ReviewsListProps = {
   reviews: Review[];
 }
 
-export function ReviewsList({...props}: ReviewsListProps){
-  return (
-    <section className="offer__reviews reviews">
-      <h2 className="reviews__title">
-        Reviews · <span className="reviews__amount">{props.reviews.length}</span>
-      </h2>
-      <ul className="reviews__list">
-        {props.reviews.map((review) => (
-          <ReviewItem
-            review={review}
-            key={review.id}
-          />
-        ))}
-      </ul>
-      <PlaceReviewForm/>
-    </section>
-  );
-}
+const ReviewsList: React.FC<ReviewsListProps> = ({ reviews }) => (
+  <div className="reviews">
+    <h2 className="reviews__title">Reviews</h2>
+    <ul className="reviews__list">
+      {reviews.map((review) => (
+        <li key={review.id} className="reviews__item">
+          <p className="reviews__text">{review.comment}</p>
+          <p className="reviews__rating">Rating: {review.rating}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+);
+
+export default ReviewsList;

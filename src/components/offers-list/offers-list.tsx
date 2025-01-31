@@ -9,11 +9,24 @@ type OffersListProps = {
   onHover: ((offerId: string | null) => void);
   currentCity: Cities;
   currentAmountOfOffers: number | undefined;
+  sortOption: string;
 }
+
+const sortOffers = (offers: Offer[], sortOption: string) => {
+  switch (sortOption) {
+    case 'priceLowToHigh':
+      return offers.sort((a, b) => a.price - b.price);
+    case 'priceHighToLow':
+      return offers.sort((a, b) => b.price - a.price);
+    case 'topRated':
+      return offers.sort((a, b) => b.rating - a.rating);
+    default:
+      return offers;
+  }
+};
 
 function OffersList({...props}: OffersListProps): JSX.Element {
   const error = useAppSelector((state: RootState) => state.error);
-
   return (
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
@@ -35,25 +48,21 @@ function OffersList({...props}: OffersListProps): JSX.Element {
         </ul>
       </form>
       <div className="cities__places-list places__list tabs__content">
-        {props.offers ? (
-          props.offers.map((offer) => (
-            <OfferCard
-              key={offer.id}
-              onHover={props.onHover}
-              id={offer.id}
-              title={offer.title}
-              type={offer.type}
-              isFavorite={offer.isFavorite}
-              isPremium={offer.isPremium}
-              price={offer.price}
-              previewImage={offer.previewImage}
-              rating={offer.rating}
-              isNearbyOfferCard={false}
-            />
-          ))
-        ) : (
-          <div>No offers available</div>
-        )}
+        {props.offers && sortOffers(props.offers, props.sortOption)?.map((offer) => (
+          <OfferCard
+            key={offer.id}
+            onHover={props.onHover}
+            id={offer.id}
+            title={offer.title}
+            type={offer.type}
+            isFavorite={offer.isFavorite}
+            isPremium={offer.isPremium}
+            price={offer.price}
+            previewImage={offer.previewImage}
+            rating={offer.rating}
+            isNearbyOfferCard={false}
+          />
+        ))}
       </div>
     </section>
   );

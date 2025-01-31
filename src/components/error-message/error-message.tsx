@@ -1,15 +1,9 @@
-import {useAppSelector} from '../../hooks/index';
-import './error-message.css';
-import { RootState } from '../../store';
+import React from 'react';
 
-function ErrorMessage() {
-  const error: string | null = useAppSelector((state: RootState) => state.error);
-
-  return (
-    <div>
-      {error && <div className="error-message">{error}</div>}
-    </div>
-  );
-}
+const ErrorMessage: React.FC<{ message?: string }> = ({ message }) => (
+  <div className="error-message">
+    {message || 'An error occurred. Please try again later.'}
+  </div>
+);
 
 export default ErrorMessage;

@@ -1,6 +1,4 @@
-export const Setting = {
-  OffersAmount: 5,
-};
+export const TIMEOUT_SHOW_ERROR = 2000;
 
 export enum AppRoute {
   Main = '/',
@@ -23,13 +21,6 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
-
-export enum SortOptions {
-    Popular = 'Popular',
-    PriceLowToHigh = 'Price: low to high',
-    PriceHighToLow = 'Price: high to low',
-    TopRated = 'Top rated first',
-  }
 
 export const URL_MARKER_DEFAULT =
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';

@@ -1,7 +1,9 @@
-import axios, {AxiosInstance, InternalAxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
-import {getToken} from './token.ts';
-import {StatusCodes} from 'http-status-codes';
-import {processErrorHandle} from './procces-error-handler.ts';
+import axios, { AxiosInstance, InternalAxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import { getToken } from './token.ts';
+import { StatusCodes } from 'http-status-codes';
+import { processErrorHandle } from './process-error-handle.ts';
+import { Cities } from '../const.ts';
+import { Offer } from '../types/Offer.ts';
 
 const BACKEND_URL = 'https://14.design.htmlacademy.pro/six-cities';
 const REQUEST_TIMEOUT = 5000;
@@ -42,7 +44,6 @@ export const createAPI = (): AxiosInstance => {
     (error: AxiosError<DetailMessageType>) => {
       if (error.response && shouldDisplayError(error.response)) {
         const detailMessage = (error.response.data);
-
         processErrorHandle(detailMessage.message);
       }
 
@@ -51,4 +52,16 @@ export const createAPI = (): AxiosInstance => {
   );
 
   return api;
+};
+
+export const fetchOffersForCity = async (city: Cities): Promise<Offer[]> => {
+  const response = await fetch(`${BACKEND_URL}/api/offers?city=${city}`);
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    console.error('Error fetching offers:', errorText);
+    throw new Error('Failed to fetch offers for the selected city');
+  }
+
+  return await response.json();
 };

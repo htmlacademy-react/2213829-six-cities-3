@@ -7,8 +7,20 @@ import FavoritesPage from '../../pages/favorites-page/favorites-page.tsx';
 import NotFoundPage from '../../pages/not-found-page/not-found-page.tsx';
 import {AppRoute, AuthorizationStatus} from '../../const.ts';
 import {FavoritePlace} from '../../types/FavoritePlace.ts';
+import {useAppSelector} from '../../hooks';
+import LoadingScreen from '../../pages/loading-page/loading-screen.tsx';
 
 function App({favoritePlaces}: AppProps): JSX.Element {
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
+  const isOfferDataLoading = useAppSelector((state) => state.isOfferDataLoading);
+
+  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading || isOfferDataLoading) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
   return (
     <BrowserRouter>
       <Routes>
@@ -23,7 +35,7 @@ function App({favoritePlaces}: AppProps): JSX.Element {
         <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+            <PrivateRoute>
               <FavoritesPage favoritePlaces={favoritePlaces}/>
             </PrivateRoute>
           }
