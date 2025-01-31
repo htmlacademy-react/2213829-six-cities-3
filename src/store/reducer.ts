@@ -1,20 +1,13 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {
-  changeCity,
-  loadOffers,
-  requireAuthorization,
-  setError,
-  setOffersDataLoadingStatus,
-  loadOffer,
-  setOfferDataLoadingStatus, loadOfferComments, loadNearbyOffers, postComment,
-} from './action.ts';
+import {changeCity, fillOffers, loadNearbyOffers, loadOffer, loadOfferComments, postComment, setError, setOfferDataLoadingStatus, setOffersDataLoadingStatus} from './action.ts';
+import {offers} from '../mocks/offers.ts';
 import {AuthorizationStatus, Cities} from '../const.ts';
-import {Offer} from '../types/Offer.ts';
-import {Place} from '../types/Place.ts';
-import {Review} from '../types/Review.ts';
-import {PostReview} from '../types/PostReview.ts';
+import { Offer } from '../types/Offer.ts';
+import { Place } from '../types/Place.ts';
+import { Review } from '../types/Review.ts';
+import { PostReview } from '../types/PostReview.ts';
 
-type InitalState = {
+type InitialState = {
   city: Cities;
   offers: Offer[];
   authorizationStatus: AuthorizationStatus;
@@ -27,10 +20,10 @@ type InitalState = {
   currentPostingComment: PostReview | null;
 }
 
-const initialState: InitalState = {
-  city: Cities.Paris,
-  offers: [],
-  authorizationStatus: AuthorizationStatus.Unknown,
+const initialState: InitialState = {
+  city: Cities.Amsterdam,
+  offers,
+  authorizationStatus: AuthorizationStatus.NoAuth,
   error: null,
   isOffersDataLoading: false,
   currentOffer: null,
@@ -45,14 +38,11 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(changeCity, (state, action) => {
       state.city = action.payload;
     })
-    .addCase(loadOffers, (state, action) => {
+    .addCase(fillOffers, (state, action) => {
       state.offers = action.payload;
     })
     .addCase(setOffersDataLoadingStatus, (state, action) => {
       state.isOffersDataLoading = action.payload;
-    })
-    .addCase(requireAuthorization, (state, action) => {
-      state.authorizationStatus = action.payload;
     })
     .addCase(setError, (state, action) => {
       state.error = action.payload;

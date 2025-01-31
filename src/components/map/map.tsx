@@ -55,7 +55,7 @@ function Map({...props}: MapProps) {
     }
   }, [map, props.city?.location.latitude, props.city?.location.longitude, props.points, props.selectedPoint]);
 
-  return <section className={props.isNearbyOffersMap ? 'offer__map map' : 'cities__map map'} ref={mapRef}></section>;
+  return <section className={props.isNearbyOffersMap ? 'offer__map map' : 'cities__map map'} ref={mapRef} />;
 }
 
 export default Map;

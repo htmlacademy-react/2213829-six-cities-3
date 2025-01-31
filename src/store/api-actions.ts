@@ -1,140 +1,108 @@
-import {AxiosInstance} from 'axios';
-import {createAsyncThunk} from '@reduxjs/toolkit';
-import {AppDispatch, State} from '../types/State.ts';
-import {Offer} from '../types/Offer.ts';
-import {
-  loadNearbyOffers,
-  loadOffer, loadOfferComments,
-  loadOffers, postComment,
-  requireAuthorization,
-  setError,
-  setOffersDataLoadingStatus
-} from './action';
-import {saveToken, dropToken} from '../services/token';
-import {APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR} from '../const';
-import {AuthData} from '../types/AuthData.ts';
-import {UserData} from '../types/UserData.ts';
-import {store} from './';
-import {Place} from '../types/Place.ts';
-import {Review} from '../types/Review.ts';
-import {PostReview} from '../types/PostReview.ts';
+import { createAsyncThunk, createAction } from '@reduxjs/toolkit';
+import { Offer } from '../types/Offer';
+import { Comment } from '../types/Comment';
 
-export const clearErrorAction = createAsyncThunk(
-  'app/clearError',
-  () => {
-    setTimeout(
-      () => store.dispatch(setError(null)),
-      TIMEOUT_SHOW_ERROR,
-    );
-  },
-);
+export const logoutAction = createAsyncThunk<void, void>(
+  'auth/logout',
+  async () => {
+    const response = await fetch('/api/auth/logout', {
+      method: 'POST',
+    });
 
-export const loadOffersAction = createAsyncThunk<void, undefined, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
-  'data/loadOffers',
-  async (_arg, {dispatch, extra: api}) => {
-    dispatch(setOffersDataLoadingStatus(true));
-    const {data} = await api.get<Offer[]>(APIRoute.Offers);
-    dispatch(setOffersDataLoadingStatus(false));
-    dispatch(loadOffers(data));
-  },
-);
-
-export const checkAuthAction = createAsyncThunk<void, undefined, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
-  'user/checkAuth',
-  async (_arg, {dispatch, extra: api}) => {
-    try {
-      await api.get(APIRoute.Login);
-      dispatch(requireAuthorization(AuthorizationStatus.Auth));
-    } catch {
-      dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+    if (!response.ok) {
+      throw new Error('Failed to log out');
     }
-  },
+  }
 );
 
-export const loginAction = createAsyncThunk<void, AuthData, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
-  'user/login',
-  async ({login: email, password}, {dispatch, extra: api}) => {
-    try {
-      const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
-      saveToken(token);
-      dispatch(requireAuthorization(AuthorizationStatus.Auth));
-    } catch (err) {
-      setError('Check your login info');
+export const checkAuthAction = createAsyncThunk<unknown, void>(
+  'auth/check',
+  async () => {
+    const response = await fetch('/api/auth/check');
+
+    if (!response.ok) {
+      throw new Error('Failed to check authentication');
     }
-  },
+
+    return (await response.json()) as unknown;
+  }
 );
 
-export const logoutAction = createAsyncThunk<void, undefined, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
-  'user/logout',
-  async (_arg, {dispatch, extra: api}) => {
-    await api.delete(APIRoute.Logout);
-    dropToken();
-    dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
-  },
+export const loginAction = createAsyncThunk<{ token: string }, { login: string; password: string }>(
+  'auth/login',
+  async (credentials) => {
+    const response = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(credentials),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to log in');
+    }
+
+    return (await response.json()) as { token: string };
+  }
 );
 
-export const loadOfferAction = createAsyncThunk<void, string | undefined, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
-  'data/loadOffer',
-  async (offerId, {dispatch, extra: api}) => {
+export const clearErrorAction = createAction('error/clear');
 
-    const {data} = await api.get<Place>(`${APIRoute.Offers}/${offerId}`);
-    dispatch(loadOffer(data));
+export const postCommentAction = createAsyncThunk<Comment, { id: string; comment: string; rating: number }>(
+  'comments/post',
+  async (commentData) => {
+    const response = await fetch('/api/comments', {
+      method: 'POST',
+      body: JSON.stringify(commentData),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
-  },
+    if (!response.ok) {
+      throw new Error('Failed to post comment');
+    }
+
+    return (await response.json()) as Comment;
+  }
 );
 
-export const loadOfferCommentsAction = createAsyncThunk<void, string | undefined, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
-  'data/loadOfferComments',
-  async (offerId, {dispatch, extra: api}) => {
-    const {data} = await api.get<Review[]>(`${APIRoute.Comments}/${offerId}`);
-    dispatch(loadOfferComments(data));
-  },
+export const loadOfferCommentsAction = createAsyncThunk<Comment[], string>(
+  'comments/load',
+  async (offerId) => {
+    const response = await fetch(`/api/offers/${offerId}/comments`);
+
+    if (!response.ok) {
+      throw new Error('Failed to load comments');
+    }
+
+    return (await response.json()) as Comment[];
+  }
 );
 
-export const loadNearbyOffersAction = createAsyncThunk<void, string | undefined, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
-  'data/loadNearbyOffers',
-  async (offerId, {dispatch, extra: api}) => {
-    const {data} = await api.get<Offer[]>(`${APIRoute.Offers}/${offerId}/nearby`);
-    dispatch(loadNearbyOffers(data));
-  },
+export const loadOfferAction = createAsyncThunk<Offer, string>(
+  'offer/load',
+  async (offerId) => {
+    const response = await fetch(`/api/offers/${offerId}`);
+
+    if (!response.ok) {
+      throw new Error('Failed to load offer');
+    }
+
+    return (await response.json()) as Offer;
+  }
 );
 
-export const postCommentAction = createAsyncThunk<void, PostReview, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
-  'data/postComment',
-  async ({id, comment, rating}, {dispatch, extra: api}) => {
-    const {data} = await api.post<PostReview>(`${APIRoute.Comments}/${id}`, {comment, rating});
-    dispatch(postComment(data));
-  },
+export const loadOffersAction = createAsyncThunk<Offer[], void>(
+  'offers/load',
+  async () => {
+    const response = await fetch('/api/offers');
+
+    if (!response.ok) {
+      throw new Error('Failed to load offers');
+    }
+
+    return (await response.json()) as Offer[];
+  }
 );

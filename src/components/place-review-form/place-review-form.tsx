@@ -19,10 +19,10 @@ function PlaceReviewForm() {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (reviewDescription && reviewRating) {
+    if (reviewDescription && reviewRating && currentOfferId) {
       const comment = {id: currentOfferId, comment: reviewDescription, rating: reviewRating};
       dispatch(postCommentAction(comment)).unwrap().then(() => {
-        dispatch(loadOfferCommentsAction(currentOffer?.id));
+        dispatch(loadOfferCommentsAction(currentOffer?.id || ''));
       });
     }
   };

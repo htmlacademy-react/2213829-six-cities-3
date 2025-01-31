@@ -1,28 +1,22 @@
-import PlaceReviewForm from '../place-review-form/place-review-form.tsx';
-import {ReviewItem} from './review-item.tsx';
-import {useAppSelector} from '../../hooks';
-import {AuthorizationStatus} from '../../const.ts';
+import React from 'react';
+import { Review } from '../../types/Review.ts';
 
-export function ReviewsList() {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const currentOfferComments = useAppSelector((state) => state.currentOfferComments);
-  const listReviews = currentOfferComments.slice().sort((a, b) => (new Date(b.date).getTime() - new Date(a.date).getTime())).slice(0, 10);
-
-  return (
-    <section className="offer__reviews reviews">
-      <h2 className="reviews__title">
-        Reviews · <span className="reviews__amount">{currentOfferComments.length}</span>
-      </h2>
-      <ul className="reviews__list">
-        {listReviews.map((review) => (
-          <ReviewItem
-            review={review}
-            key={review.id}
-          />
-        ))}
-      </ul>
-      {authorizationStatus === AuthorizationStatus.Auth &&
-        <PlaceReviewForm/>}
-    </section>
-  );
+type ReviewsListProps = {
+  reviews: Review[];
 }
+
+const ReviewsList: React.FC<ReviewsListProps> = ({ reviews }) => (
+  <div className="reviews">
+    <h2 className="reviews__title">Reviews</h2>
+    <ul className="reviews__list">
+      {reviews.map((review) => (
+        <li key={review.id} className="reviews__item">
+          <p className="reviews__text">{review.comment}</p>
+          <p className="reviews__rating">Rating: {review.rating}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+);
+
+export default ReviewsList;

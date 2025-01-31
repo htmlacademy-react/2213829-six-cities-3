@@ -1,11 +1,17 @@
+
+import { Cities } from '../../const.ts';
+import { City } from '../../types/City.ts';
+// import {City} from '../../types/City.ts';
 import {Offer} from '../../types/Offer.ts';
 import {Point} from '../../types/Point.ts';
 import Map from '../map/map.tsx';
 
 type CitiesMapProps = {
+  city: Cities | null;
   offers: Offer[] | null;
   selectedOfferId: string | null;
   isNearbyOffersMap: boolean;
+  hoveredOfferId: string | null;
 }
 
 function CitiesMap({...props}: CitiesMapProps) {

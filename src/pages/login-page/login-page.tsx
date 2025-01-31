@@ -1,5 +1,5 @@
 import {Header} from '../../components/header/header.tsx';
-import {FormEvent, useState} from 'react';
+import { useState} from 'react';
 import {useAppDispatch} from '../../hooks';
 import {useNavigate} from 'react-router-dom';
 import {loginAction} from '../../store/api-actions.ts';
@@ -20,7 +20,7 @@ function LoginPage() {
     setPassword(input);
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     if (login !== null && password !== null) {

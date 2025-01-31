@@ -1,31 +1,33 @@
-import {ReviewsList} from '../../components/reviews/reviews-list.tsx';
-import {OffersNearby} from '../../components/offers-nearby/offers-nearby.tsx';
-import {Header} from '../../components/header/header.tsx';
-import {useAppDispatch, useAppSelector} from '../../hooks';
-import {useParams} from 'react-router-dom';
-import {useEffect} from 'react';
-import {loadNearbyOffersAction, loadOfferAction, loadOfferCommentsAction} from '../../store/api-actions.ts';
-import NotFoundPage from '../not-found-page/not-found-page.tsx';
-import {setOfferDataLoadingStatus} from '../../store/action.ts';
+import ReviewsList from '../../components/reviews/reviews-list.tsx';
+import OffersNearby from '../../components/offers-nearby/offers-nearby.tsx';
+import { Header } from '../../components/header/header.tsx';
+import { useAppSelector } from '../../hooks';
+import { useEffect } from 'react';
+import { fetchOffersForCity } from '../../services/api';
 
-function OfferPage() {
-  const dispatch = useAppDispatch();
-  const {id: offerId} = useParams();
+
+function OfferPage(): JSX.Element {
   const currentOffer = useAppSelector((state) => state.currentOffer);
+  const comments = currentOffer ? currentOffer.comments : [];
+  const city = useAppSelector((state) => state.city);
+  const nearbyOffers = useAppSelector((state) => state.currentNearbyOffers);
+  const selectedOfferId = '1';
+  const hoveredOfferId = null;
 
   useEffect(() => {
-    dispatch(setOfferDataLoadingStatus(true));
-    dispatch(loadOfferAction(offerId));
-    dispatch(loadOfferCommentsAction(offerId));
-    dispatch(loadNearbyOffersAction(offerId));
-    dispatch(setOfferDataLoadingStatus(false));
-  }, [offerId, dispatch]);
+    const fetchOffers = async () => {
+      try {
+        const offers = await fetchOffersForCity(city);
+        // Update state or dispatch action to store offers
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-  if (!currentOffer) {
-    return <NotFoundPage/>;
-  }
+    fetchOffers();
+  }, [city]); // Fetch when city changes
 
-  return (
+  return(
     <div className="page">
       <Header/>
       <main className="page__main page__main--offer">
@@ -117,12 +119,18 @@ function OfferPage() {
                     </p>
                   </div>
                 </div>
-                <ReviewsList/>
               </div>
+              <ReviewsList reviews={comments} />
             </div>
           </section>
         )}
-        <OffersNearby/>
+        <OffersNearby
+          city={city}
+          offers={nearbyOffers}
+          selectedOfferId={selectedOfferId}
+          hoveredOfferId={hoveredOfferId}
+          isNearbyOffersMap={true}
+        />
       </main>
     </div>
   );
