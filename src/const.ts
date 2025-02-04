@@ -16,13 +16,6 @@ export enum Cities {
   Dusseldorf = 'Dusseldorf',
 }
 
-export enum SortOptions {
-  Popular = 'Popular',
-  PriceLowToHigh = 'Price: low to high',
-  PriceHighToLow = 'Price: high to low',
-  TopRated = 'Top rated first',
-}
-
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
@@ -33,6 +26,7 @@ export enum APIRoute {
   Offers = '/offers',
   Login = '/login',
   Logout = '/logout',
+  Comments = '/comments',
 }
 
 export const URL_MARKER_DEFAULT =

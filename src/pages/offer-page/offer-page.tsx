@@ -3,68 +3,34 @@ import {Link} from 'react-router-dom';
 import {ReviewsList} from '../../components/reviews/reviews-list.tsx';
 import {reviews} from '../../mocks/reviews.ts';
 import {OffersNearby} from '../../components/offers-nearby/offers-nearby.tsx';
-import { fetchOffersForCity } from '../../services/fetchOffers.ts';
-import { useEffect, useState } from 'react';
-import { Cities } from '../../const.ts';
-import { Offer } from '../../types/Offer.ts';
+import {Header} from '../../components/header/header.tsx';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {useParams} from 'react-router-dom';
+import {useEffect} from 'react';
+import {loadNearbyOffersAction, loadOfferAction, loadOfferCommentsAction} from '../../store/api-actions.ts';
+import NotFoundPage from '../not-found-page/not-found-page.tsx';
+import {setOfferDataLoadingStatus} from '../../store/action.ts';
 
-function OfferPage(): JSX.Element {
-  const [offers, setOffers] = useState<Offer[]>([]);
-  const city: Cities = Cities.Amsterdam; 
+function OfferPage() {
+  const dispatch = useAppDispatch();
+  const {id: offerId} = useParams();
+  const currentOffer = useAppSelector((state) => state.currentOffer);
 
   useEffect(() => {
-    const loadOffers = async () => {
-      try {
-        const fetchedOffers = await fetchOffersForCity(city);
-        setOffers(fetchedOffers);
-      } catch (error) {
-        console.error('Error loading offers:', error);
-      }
-    };
+    dispatch(setOfferDataLoadingStatus(true));
+    dispatch(loadOfferAction(offerId));
+    dispatch(loadOfferCommentsAction(offerId));
+    dispatch(loadNearbyOffersAction(offerId));
+    dispatch(setOfferDataLoadingStatus(false));
+  }, [offerId, dispatch]);
 
-    loadOffers();
-  }, [city]);
+  if (!currentOffer) {
+    return <NotFoundPage/>;
+  }
 
-  return(
+  return (
     <div className="page">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Link className="header__logo-link" to={AppRoute.Main}>
-                <img
-                  className="header__logo"
-                  src="img/logo.svg"
-                  alt="6 cities logo"
-                  width={81}
-                  height={41}
-                />
-              </Link>
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <Link
-                    className="header__nav-link header__nav-link--profile"
-                    to={AppRoute.Favorites}
-                  >
-                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                    <span className="header__user-name user__name">
-                  Oliver.conner@gmail.com
-                    </span>
-                    <span className="header__favorite-count">3</span>
-                  </Link>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <Header />
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">
@@ -191,23 +157,12 @@ function OfferPage(): JSX.Element {
                 comes to rest in this alley flowery and colorful.
                   </p>
                 </div>
+                <ReviewsList/>
               </div>
-              <h1 className="offer__name">Список предложений в {city}</h1>
-              <ul className="offer__list">
-                {offers.map((offer) => (
-                  <li key={offer.id} className="offer__item">
-                    <h2 className="offer__item-name">{offer.title}</h2>
-                    <p className="offer__item-price">Цена: €{offer.price} за ночь</p>
-                    <p className="offer__item-rating">Рейтинг: {offer.rating}</p>
-                    <Link to={`/offer/${offer.id}`} className="offer__item-link">Подробнее</Link>
-                  </li>
-                ))}
-              </ul>
-              <ReviewsList reviews={reviews} />
             </div>
           </div>
         </section>
-        <OffersNearby selectedOfferId={'1'} />
+        <OffersNearby/>
       </main>
     </div>
   );

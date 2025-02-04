@@ -7,6 +7,10 @@ export function Header() {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const dispatch = useAppDispatch();
 
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    dispatch(logoutAction());
+  };
+
   return (
     <header className="header">
       <div className="container">

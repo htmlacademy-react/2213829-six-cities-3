@@ -1,51 +1,68 @@
 import OfferCard from '../offer-card/offer-card.tsx';
 import {Offer} from '../../types/Offer.ts';
-import {Cities, SortOptions} from '../../const.ts';
-import {SortingForm} from './sorting-form.tsx';
-import {useState} from 'react';
+import { Cities } from '../../const.ts';
+import { useAppSelector } from '../../hooks/index.ts';
+import { RootState } from '../../store/index.ts';
+import { useState } from 'react';
 
 type OffersListProps = {
   offers: Offer[] | null;
   onHover: ((offerId: string | null) => void);
   currentCity: Cities;
   currentAmountOfOffers: number | undefined;
+  sortOption: string;
 }
 
-function OffersList({...props}: OffersListProps): JSX.Element {
-  const [sortOption, setSortOption] = useState<SortOptions>(SortOptions.Popular);
+function OffersList({...props}: OffersListProps) {
+  const [sortOption, setSortOption] = useState<string>(props.sortOption);
 
-  function handleChangeSortOption(newSortOption: SortOptions) {
+  function handleChangeSortOption(newSortOption: string) {
     setSortOption(newSortOption);
   }
 
-  function sortOffers(offersToSort: Offer[] | null, sortOptionToUse: SortOptions) {
+  function sortOffers(offersToSort: Offer[] | null, sortOptionToUse: string) {
     if (!offersToSort) {
       return null;
     }
     switch (sortOptionToUse) {
-      case SortOptions.Popular:
+      case 'Popular':
         return offersToSort;
-      case SortOptions.PriceLowToHigh:
+      case 'PriceLowToHigh':
         return [...offersToSort].sort((a, b) => a.price - b.price);
-      case SortOptions.PriceHighToLow:
+      case 'PriceHighToLow':
         return [...offersToSort].sort((a, b) => b.price - a.price);
-      case SortOptions.TopRated:
+      case 'TopRated':
         return [...offersToSort].sort((a, b) => b.rating - a.rating);
       default:
         return offersToSort;
     }
   }
+};
 
+function OffersList({...props}: OffersListProps): JSX.Element {
+  const error = useAppSelector((state: RootState) => state.error);
   return (
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
-      <b className="places__found">{props.currentAmountOfOffers ?? '0'} places to stay in {props.currentCity}</b>
-      <SortingForm
-        handleChangeSortOption={handleChangeSortOption}
-        currentSortOption={sortOption}
-      />
+      {error && <div className="error-message">{error}</div>}
+      <b className="places__found">{props.currentAmountOfOffers} places to stay in {props.currentCity}</b>
+      <form className="places__sorting" action="#" method="get">
+        <span className="places__sorting-caption">Sort by</span>
+        <span className="places__sorting-type" tabIndex={0}>
+          {sortOption}
+          <svg className="places__sorting-arrow" width="7" height="4">
+            <use xlinkHref="#icon-arrow-select"></use>
+          </svg>
+        </span>
+        <ul className="places__options places__options--custom places__options--opened">
+          <li className="places__option places__option--active" tabIndex={0}>Popular</li>
+          <li className="places__option" tabIndex={0}>Price: low to high</li>
+          <li className="places__option" tabIndex={0}>Price: high to low</li>
+          <li className="places__option" tabIndex={0}>Top rated first</li>
+        </ul>
+      </form>
       <div className="cities__places-list places__list tabs__content">
-        {props.offers ? sortOffers(props.offers, sortOption)?.map((offer) => (
+        {props.offers && sortOffers(props.offers, sortOption)?.map((offer) => (
           <OfferCard
             key={offer.id}
             onHover={props.onHover}
@@ -58,8 +75,8 @@ function OffersList({...props}: OffersListProps): JSX.Element {
             previewImage={offer.previewImage}
             rating={offer.rating}
             isNearbyOfferCard={false}
-          />)) :
-          (<p>No places to stay available</p>)}
+          />
+        ))}
       </div>
     </section>
   );

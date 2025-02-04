@@ -12,6 +12,16 @@ function PlaceReviewForm(): JSX.Element {
     setReviewDescription(evt.target.value);
   };
 
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (reviewDescription && reviewRating) {
+      const comment = {id: currentOfferId, comment: reviewDescription, rating: reviewRating};
+      dispatch(postCommentAction(comment)).unwrap().then(() => {
+        dispatch(loadOfferCommentsAction(currentOffer?.id));
+      });
+    }
+  };
+
   return (
     <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">

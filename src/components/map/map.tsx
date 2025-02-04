@@ -55,7 +55,7 @@ function Map({ city, points, selectedPoint, isNearbyOffersMap }: MapProps) {
     }
   }, [map, city?.location.latitude, city?.location.longitude, points, selectedPoint]);
 
-  return <section className={isNearbyOffersMap ? 'offer__map map' : 'cities__map map'} ref={mapRef} />;
+  return <section className={props.isNearbyOffersMap ? 'offer__map map' : 'cities__map map'} ref={mapRef}></section>;
 }
 
 export default Map;
