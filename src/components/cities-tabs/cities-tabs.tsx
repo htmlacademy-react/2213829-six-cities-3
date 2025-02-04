@@ -10,7 +10,7 @@ type CitiesTabsProps = {
   updateOffers: (offers: Offer[]) => void;
 }
 
-export function CitiesTabs({...props}: CitiesTabsProps) {
+export function CitiesTabs({ currentCity }: CitiesTabsProps) {
   const dispatch = useAppDispatch();
   
   const handleChangeCity = (city: Cities) => {
@@ -46,14 +46,36 @@ export function CitiesTabs({...props}: CitiesTabsProps) {
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
-          {cityKeys.map((cityKey) => (
-            <Tab
-              key={cityKey}
-              title={Cities[cityKey]}
-              isActive={props.currentCity === Cities[cityKey]}
-              handleClick={() => handleCitySelect(Cities[cityKey])}
-            />
-          ))}
+          <Tab
+            title={Cities.Paris}
+            isActive={props.currentCity === Cities.Paris}
+            handleClick={handleChangeCity}
+          />
+          <Tab
+            title={Cities.Cologne}
+            isActive={props.currentCity === Cities.Cologne}
+            handleClick={handleChangeCity}
+          />
+          <Tab
+            title={Cities.Brussels}
+            isActive={props.currentCity === Cities.Brussels}
+            handleClick={handleChangeCity}
+          />
+          <Tab
+            title={Cities.Amsterdam}
+            isActive={props.currentCity === Cities.Amsterdam}
+            handleClick={handleChangeCity}
+          />
+          <Tab
+            title={Cities.Hamburg}
+            isActive={props.currentCity === Cities.Hamburg}
+            handleClick={handleChangeCity}
+          />
+          <Tab
+            title={Cities.Dusseldorf}
+            isActive={props.currentCity === Cities.Dusseldorf}
+            handleClick={handleChangeCity}
+          />
         </ul>
       </section>
     </div>

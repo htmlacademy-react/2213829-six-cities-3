@@ -3,6 +3,7 @@ import {Offer} from '../../types/Offer.ts';
 import { Cities } from '../../const.ts';
 import { useAppSelector } from '../../hooks/index.ts';
 import { RootState } from '../../store/index.ts';
+import { useState } from 'react';
 
 type OffersListProps = {
   offers: Offer[] | null;
@@ -12,16 +13,29 @@ type OffersListProps = {
   sortOption: string;
 }
 
-const sortOffers = (offers: Offer[], sortOption: string) => {
-  switch (sortOption) {
-    case 'priceLowToHigh':
-      return offers.sort((a, b) => a.price - b.price);
-    case 'priceHighToLow':
-      return offers.sort((a, b) => b.price - a.price);
-    case 'topRated':
-      return offers.sort((a, b) => b.rating - a.rating);
-    default:
-      return offers;
+function OffersList({...props}: OffersListProps) {
+  const [sortOption, setSortOption] = useState<string>(props.sortOption);
+
+  function handleChangeSortOption(newSortOption: string) {
+    setSortOption(newSortOption);
+  }
+
+  function sortOffers(offersToSort: Offer[] | null, sortOptionToUse: string) {
+    if (!offersToSort) {
+      return null;
+    }
+    switch (sortOptionToUse) {
+      case 'Popular':
+        return offersToSort;
+      case 'PriceLowToHigh':
+        return [...offersToSort].sort((a, b) => a.price - b.price);
+      case 'PriceHighToLow':
+        return [...offersToSort].sort((a, b) => b.price - a.price);
+      case 'TopRated':
+        return [...offersToSort].sort((a, b) => b.rating - a.rating);
+      default:
+        return offersToSort;
+    }
   }
 };
 
@@ -31,11 +45,11 @@ function OffersList({...props}: OffersListProps): JSX.Element {
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
       {error && <div className="error-message">{error}</div>}
-      <b className="places__found">312 places to stay in Amsterdam</b>
+      <b className="places__found">{props.currentAmountOfOffers} places to stay in {props.currentCity}</b>
       <form className="places__sorting" action="#" method="get">
         <span className="places__sorting-caption">Sort by</span>
         <span className="places__sorting-type" tabIndex={0}>
-          Popular
+          {sortOption}
           <svg className="places__sorting-arrow" width="7" height="4">
             <use xlinkHref="#icon-arrow-select"></use>
           </svg>
@@ -48,7 +62,7 @@ function OffersList({...props}: OffersListProps): JSX.Element {
         </ul>
       </form>
       <div className="cities__places-list places__list tabs__content">
-        {props.offers && sortOffers(props.offers, props.sortOption)?.map((offer) => (
+        {props.offers && sortOffers(props.offers, sortOption)?.map((offer) => (
           <OfferCard
             key={offer.id}
             onHover={props.onHover}

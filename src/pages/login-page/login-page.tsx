@@ -2,18 +2,19 @@ import {Header} from '../../components/header/header.tsx';
 import { useState} from 'react';
 import {useAppDispatch} from '../../hooks';
 import {useNavigate} from 'react-router-dom';
-import {loginAction} from '../../store/api-actions.ts';
+import {loginAction} from '../../store/api-actions';
 import {AppRoute} from '../../const.ts';
+import { AuthData } from '../../types/AuthData.ts';
 
 function LoginPage() {
-  const [login, setLogin] = useState<string | null>(null);
+  const [email, setEmail] = useState<string | null>(null);
   const [password, setPassword] = useState<string | null>(null);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  function handleSetLogin(input: string | null) {
-    setLogin(input);
+  function handleSetEmail(input: string | null) {
+    setEmail(input);
   }
 
   function handleSetPassword(input: string | null) {
@@ -23,11 +24,11 @@ function LoginPage() {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (login !== null && password !== null) {
+    if (email !== null && password !== null) {
       dispatch(loginAction({
-        login: login,
-        password: password,
-      }));
+        login: email.trim(),
+        password: password.trim(),
+      } as AuthData));
 
       navigate(AppRoute.Main);
     }
