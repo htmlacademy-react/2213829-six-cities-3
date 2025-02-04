@@ -3,7 +3,7 @@ import {changeCity, loadOffers, requireAuthorization, setError, setOffersDataLoa
 import {AuthorizationStatus, Cities} from '../const.ts';
 import {Offer} from '../types/Offer.ts';
 
-type InitalState = {
+type InitialState = {
   city: Cities;
   offers: Offer[];
   authorizationStatus: AuthorizationStatus;
@@ -11,7 +11,7 @@ type InitalState = {
   isOffersDataLoading: boolean;
 }
 
-const initialState: InitalState = {
+const initialState: InitialState = {
   city: Cities.Paris,
   offers: [],
   authorizationStatus: AuthorizationStatus.Unknown,

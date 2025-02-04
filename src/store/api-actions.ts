@@ -27,9 +27,15 @@ export const fetchOfferAction = createAsyncThunk<void, undefined, {
   'data/fetchQuestions',
   async (_arg, {dispatch, extra: api}) => {
     dispatch(setOffersDataLoadingStatus(true));
-    const {data} = await api.get<Offer[]>(APIRoute.Offers);
-    dispatch(setOffersDataLoadingStatus(false));
-    dispatch(loadOffers(data));
+    try {
+      const {data} = await api.get<Offer[]>(APIRoute.Offers);
+      dispatch(loadOffers(data));
+    } catch (error) {
+      console.error('Error fetching offers:', error);
+      dispatch(setError('Failed to load offers'));
+    } finally {
+      dispatch(setOffersDataLoadingStatus(false));
+    }
   },
 );
 
@@ -61,7 +67,8 @@ export const loginAction = createAsyncThunk<void, AuthData, {
       saveToken(token);
       dispatch(requireAuthorization(AuthorizationStatus.Auth));
     } catch (err) {
-      setError('Check your login info');
+      dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+      console.error('Login failed:', err);
     }
   },
 );
