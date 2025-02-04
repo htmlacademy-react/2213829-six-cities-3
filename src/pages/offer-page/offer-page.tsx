@@ -3,8 +3,28 @@ import {Link} from 'react-router-dom';
 import {ReviewsList} from '../../components/reviews/reviews-list.tsx';
 import {reviews} from '../../mocks/reviews.ts';
 import {OffersNearby} from '../../components/offers-nearby/offers-nearby.tsx';
+import { fetchOffersForCity } from '../../services/fetchOffers.ts';
+import { useEffect, useState } from 'react';
+import { Cities } from '../../const.ts';
+import { Offer } from '../../types/Offer.ts';
 
 function OfferPage(): JSX.Element {
+  const [offers, setOffers] = useState<Offer[]>([]);
+  const city: Cities = Cities.Amsterdam; 
+
+  useEffect(() => {
+    const loadOffers = async () => {
+      try {
+        const fetchedOffers = await fetchOffersForCity(city);
+        setOffers(fetchedOffers);
+      } catch (error) {
+        console.error('Error loading offers:', error);
+      }
+    };
+
+    loadOffers();
+  }, [city]);
+
   return(
     <div className="page">
       <header className="header">
@@ -172,6 +192,17 @@ function OfferPage(): JSX.Element {
                   </p>
                 </div>
               </div>
+              <h1 className="offer__name">Список предложений в {city}</h1>
+              <ul className="offer__list">
+                {offers.map((offer) => (
+                  <li key={offer.id} className="offer__item">
+                    <h2 className="offer__item-name">{offer.title}</h2>
+                    <p className="offer__item-price">Цена: €{offer.price} за ночь</p>
+                    <p className="offer__item-rating">Рейтинг: {offer.rating}</p>
+                    <Link to={`/offer/${offer.id}`} className="offer__item-link">Подробнее</Link>
+                  </li>
+                ))}
+              </ul>
               <ReviewsList reviews={reviews} />
             </div>
           </div>
